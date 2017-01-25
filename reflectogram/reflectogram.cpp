@@ -22,6 +22,16 @@ bool Reflectogram::read(AbstractInputBuffer &buffer)
     return true;
 }
 
+bool Reflectogram::empty() const
+{
+    return !m_mainBlock;
+}
+
+void Reflectogram::clear()
+{
+    m_mainBlock.reset();
+}
+
 Reflectogram::DataIterator Reflectogram::dataBegin() const
 {
     return m_mainBlock
@@ -125,13 +135,13 @@ void Reflectogram::setSoftwareVersion(const String &version)
                           SupplierParametersBlock::SoftwareVersion);
 }
 
-String Reflectogram::other() const
+String Reflectogram::supplierOther() const
 {
     return value<StringField>(MainBlock::SupplierParameters,
                               SupplierParametersBlock::Other);
 }
 
-void Reflectogram::setOther(const String &other)
+void Reflectogram::setSupplierOther(const String &other)
 {
     setValue<StringField>(other,
                           MainBlock::SupplierParameters,

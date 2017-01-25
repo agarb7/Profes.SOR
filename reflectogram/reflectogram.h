@@ -16,6 +16,9 @@ public:
 
     bool read(AbstractInputBuffer& buffer);
 
+    bool empty() const;
+    void clear();
+
     DataIterator dataBegin() const;
     DataIterator dataEnd() const;
 
@@ -39,8 +42,8 @@ public:
     String softwareVersion() const;
     void setSoftwareVersion(const String &version);
 
-    String other() const;
-    void setOther(const String &other);
+    String supplierOther() const;
+    void setSupplierOther(const String &other);
 
     LittleUInt32 dateTime() const;
     void setDateTime(LittleUInt32 dateTime);

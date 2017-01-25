@@ -12,7 +12,6 @@ TARGET = Profestsor
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        widget.cpp \ 
     reflectogram/blocks/checksumblock.cpp \
     reflectogram/blocks/mapblock.cpp \
     reflectogram/fields/littleuint16vectorfield.cpp \
@@ -30,9 +29,15 @@ SOURCES += main.cpp\
     reflectogram/blocks/mapitemblock.cpp \
     reflectogram/blocks/keyeventblock.cpp \
     reflectogram/blocks/mainblock.cpp \
-    fileinputbuffer.cpp
+    fileinputbuffer.cpp \
+    reflectogrammodel.cpp \
+    gui/label.cpp \
+    gui/toallbutton.cpp \
+    gui/reflectogramwidget.cpp \
+    gui/filelistpanel.cpp \
+    gui/mainwindow.cpp
 
-HEADERS  += widget.h \ 
+HEADERS  += \ 
     reflectogram/blocks/checksumblock.h \
     reflectogram/blocks/mapblock.h \
     reflectogram/fields/intfield.h \
@@ -59,6 +64,15 @@ HEADERS  += widget.h \
     reflectogram/blocks/keyeventblock.h \
     reflectogram/blocks/mainblock.h \
     reflectogram/blocks/mainblockchildid.h \
-    fileinputbuffer.h
+    fileinputbuffer.h \
+    reflectogrammodel.h \
+    gui/label.h \
+    gui/toallbutton.h \
+    gui/reflectogramwidget.h \
+    gui/filelistpanel.h \
+    gui/mainwindow.h
 
-FORMS    += widget.ui
+FORMS    += \
+    gui/reflectogramwidget.ui \
+    gui/filelistpanel.ui \
+    gui/mainwindow.ui
