@@ -1,7 +1,7 @@
 #include "filelistpanel.h"
 #include "ui_filelistpanel.h"
 
-#include "reflectogrammodel.h"
+#include "model/reflectogrammodel.h"
 
 #include <QFileDialog>
 #include <QMessageBox>

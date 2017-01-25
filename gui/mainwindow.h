@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "reflectogrammodel.h"
+#include "model/reflectogrammodel.h"
 
 #include <QWidget>
 

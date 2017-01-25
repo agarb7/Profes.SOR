@@ -1,7 +1,7 @@
 #include "reflectogramwidget.h"
 #include "ui_reflectogramwidget.h"
 
-#include "reflectogrammodel.h"
+#include "model/reflectogrammodel.h"
 
 ReflectogramWidget::ReflectogramWidget(QWidget *parent) :
     QWidget(parent),
