@@ -59,11 +59,11 @@ private:
     Int m_data;
 };
 
-using LittleInt16Field = IntField<LittleInt16>;
-using LittleUInt16Field = IntField<LittleUInt16>;
+using LittleInt16Field = IntField<LeInt16>;
+using LittleUInt16Field = IntField<LeUInt16>;
 
-using LittleInt32Field = IntField<LittleInt32>;
-using LittleUInt32Field = IntField<LittleUInt32>;
+using LittleInt32Field = IntField<LeInt32>;
+using LittleUInt32Field = IntField<LeUInt32>;
 
 } // namespace Core
 

@@ -1,24 +1,35 @@
 #ifndef KEYEVENTSBLOCK_H
 #define KEYEVENTSBLOCK_H
 
-#include "../block.h"
+#include "../fields/intfield.h"
+
+#include "../mappingblock.h"
 
 namespace Core {
 
-class KeyEventBlock;
+class KeyEventsItemBlock;
 
-class KeyEventsBlock: public Block
+enum class KeyEvents {
+    EventsCount,
+    TotalLoss,
+    FiberStartPosition,
+    FiberLength,
+    OpticalReturnLoss
+};
+
+template<>
+struct IdMap<KeyEvents>: IdMapBase<
+    IdMapItem<KeyEvents, KeyEvents::EventsCount, LittleUInt16Field>,
+    IdMapItem<KeyEvents, KeyEvents::TotalLoss, LittleInt32Field>,
+    IdMapItem<KeyEvents, KeyEvents::FiberStartPosition, LittleInt32Field>,
+    IdMapItem<KeyEvents, KeyEvents::FiberLength, LittleUInt32Field>,
+    IdMapItem<KeyEvents, KeyEvents::OpticalReturnLoss, LittleUInt16Field>
+>{};
+
+class KeyEventsBlock: public MappingBlock<KeyEvents>
 {
 public:
-    using EventIterator = CastingChildIterator<KeyEventBlock>;
-
-    enum {
-        EventsCount,
-        TotalLoss,
-        FiberStartPosition,
-        FiberLength,
-        OpticalReturnLoss
-    };
+    using EventIterator = CastingChildIterator<KeyEventsItemBlock>;
 
     virtual bool readChildren(AbstractInputBuffer &buffer);
 
@@ -26,7 +37,7 @@ public:
     EventIterator eventsEnd() const;
 
 private:
-    static const int m_eventsOffset = 1;
+    static constexpr int m_eventsOffset = 1;
 };
 
 } // namespace Core

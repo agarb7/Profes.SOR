@@ -71,6 +71,6 @@ private:
     std::vector<Row> m_data;
 };
 
-Q_DECLARE_METATYPE(Core::LittleUInt16Vector)
+Q_DECLARE_METATYPE(Core::LeUInt16Vector)
 
 #endif // REFLECTOGRAMMODEL_H

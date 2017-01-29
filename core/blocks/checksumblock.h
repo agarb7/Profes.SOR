@@ -1,17 +1,24 @@
 #ifndef CHECKSUMBLOCK_H
 #define CHECKSUMBLOCK_H
 
-#include "../block.h"
+#include "../mappingblock.h"
+
+#include "../fields/intfield.h"
 
 namespace Core {
 
-class ChecksumBlock: public Block
+enum class Checksum {
+    Checksum
+};
+
+template<>
+struct IdMap<Checksum>: IdMapBase<
+    IdMapItem<Checksum, Checksum::Checksum, LittleUInt16Field>
+>{};
+
+class ChecksumBlock: public MappingBlock<Checksum>
 {
 public:
-    enum {
-        Checksum
-    };
-
     virtual bool readChildren(AbstractInputBuffer &buffer);
 
     void calculate(DataIterator first, DataIterator last);

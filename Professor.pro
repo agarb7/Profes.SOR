@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Profestsor
+TARGET = Professor
 TEMPLATE = app
 
 SOURCES += main.cpp\
@@ -27,7 +27,6 @@ SOURCES += main.cpp\
     core/blocks/datapointsblock.cpp \
     core/blocks/rawblock.cpp \
     core/blocks/mapitemblock.cpp \
-    core/blocks/keyeventblock.cpp \
     core/blocks/mainblock.cpp \
     model/fileinputbuffer.cpp \
     model/reflectogrammodel.cpp \
@@ -35,7 +34,8 @@ SOURCES += main.cpp\
     gui/toallbutton.cpp \
     gui/reflectogramwidget.cpp \
     gui/filelistpanel.cpp \
-    gui/mainwindow.cpp
+    gui/mainwindow.cpp \
+    core/blocks/keyeventsitemblock.cpp
 
 HEADERS  += \ 
     core/blocks/checksumblock.h \
@@ -46,7 +46,6 @@ HEADERS  += \
     core/fields/stringfield.h \
     core/abstractinputbuffer.h \
     core/block.h \
-    core/definitions.h \
     core/field.h \
     core/node.h \
     core/reflectogram.h \
@@ -61,16 +60,19 @@ HEADERS  += \
     core/fields/fixedrawfield.h \
     core/blocks/mapitemblock.h \
     core/fields/fixedstringfield.h \
-    core/blocks/keyeventblock.h \
     core/blocks/mainblock.h \
-    core/blocks/mainblockchildid.h \
     model/fileinputbuffer.h \
     model/reflectogrammodel.h \
     gui/label.h \
     gui/toallbutton.h \
     gui/reflectogramwidget.h \
     gui/filelistpanel.h \
-    gui/mainwindow.h
+    gui/mainwindow.h \
+    core/mappingblock.h \
+    core/blocks/mainchildid.h \
+    core/blocks/keyeventsitemblock.h \
+    core/types.h \
+    core/mptypes.h
 
 FORMS    += \
     gui/reflectogramwidget.ui \

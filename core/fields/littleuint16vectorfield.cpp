@@ -20,7 +20,7 @@ bool LittleUInt16VectorField::read(AbstractInputBuffer &buffer, SizeType count)
 {
     SizeType newSize = count*2;
 
-    LittleUInt16Vector newData(count);
+    LeUInt16Vector newData(count);
     char* newCharData = reinterpret_cast<char*>(newData.data());
     if (!buffer.read(newCharData, newSize))
         return false;
@@ -31,21 +31,21 @@ bool LittleUInt16VectorField::read(AbstractInputBuffer &buffer, SizeType count)
     return true;
 }
 
-LittleUInt16Vector LittleUInt16VectorField::value() const
+LeUInt16Vector LittleUInt16VectorField::value() const
 {
     return m_data;
 }
 
-void LittleUInt16VectorField::setValue(const LittleUInt16Vector &value)
+void LittleUInt16VectorField::setValue(const LeUInt16Vector &value)
 {
     if (m_data == value)
         return;
 
-    LittleUInt16Vector temp = value;
+    LeUInt16Vector temp = value;
     swapData(temp);
 }
 
-void LittleUInt16VectorField::swapData(LittleUInt16Vector &value)
+void LittleUInt16VectorField::swapData(LeUInt16Vector &value)
 {
     SizeType oldCount = m_data.size();
     SizeType newCount = value.size();

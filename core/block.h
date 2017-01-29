@@ -3,16 +3,13 @@
 
 #include "node.h"
 
-#include <vector>
-
 namespace Core {
 
 class AbstractInputBuffer;
 
 class Block: public Node
 {
-    using ChildrenContainer = std::vector<Node*>;
-    using IdChildrenMap = std::vector<Node*>;
+    using ChildrenContainer = std::vector<Node*>;    
 
 public:
     using ChildIterator = ChildrenContainer::const_iterator;
@@ -22,32 +19,6 @@ public:
     virtual SizeType size() const;
 
     virtual bool readChildren(AbstractInputBuffer &buffer) = 0;
-
-    template <class Child = Node>
-    Child *child(int id) const
-    {
-        SizeType index = id;
-        if (index >= m_idChildrenMap.size())
-            return 0;
-
-        return static_cast<Child*>(m_idChildrenMap[index]);
-    }
-
-    template <class Child = Node>
-    Child *descendant(int id) const
-    {
-        return child<Child>(id);
-    }
-
-    template <class Child = Node, class ...Ids>
-    Child *descendant(int id, Ids ...ids) const
-    {
-        auto block = dynamic_cast<Block*>(child(id));
-        if (!block)
-            return 0;
-
-        return block->descendant<Child>(ids...);
-    }
 
     ChildIterator childrenBegin() const;
     ChildIterator childrenEnd() const;
@@ -59,27 +30,17 @@ protected:
     class CastingChildIterator;
 
     void addChild(Node *child);
-    void addChild(int id, Node *child);
 
-    template <class Child, class ...Ids>
-    Child *createChild(Ids ...ids)
+    template <class NodeType>
+    NodeType *createChild()
     {
-        auto child = new Child;
-        addChild(ids..., child);
-
-        return child;
+        auto node = new NodeType;
+        addChild(node);
+        return node;
     }
 
 private:
-    void idIndex(Node *) {}
-    void idIndex(int id, Node *child);
-
-    template <class ...Ids>
-    void addChildImpl(Node *child, Ids ...ids);
-
-    SizeType m_size = 0;
-
-    IdChildrenMap m_idChildrenMap;
+    SizeType m_size = 0;    
     ChildrenContainer m_children;    
 };
 

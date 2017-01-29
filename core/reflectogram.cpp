@@ -10,6 +10,8 @@
 #include "fields/intfield.h"
 #include "fields/littleuint16vectorfield.h"
 
+#include <type_traits>
+
 namespace Core {
 
 bool Reflectogram::read(AbstractInputBuffer &buffer)
@@ -54,235 +56,169 @@ void Reflectogram::calculateChecksum()
         return;
 
     ChecksumBlock *chksum
-            = m_mainBlock->child<ChecksumBlock>(MainBlock::Checksum);
+            = m_mainBlock->child<Main::Checksum>();
 
     chksum->calculate(m_mainBlock->dataBegin(), m_mainBlock->dataIterator(chksum));
 }
 
 String Reflectogram::supplierName() const
 {
-    return value<StringField>(MainBlock::SupplierParameters,
-                              SupplierParametersBlock::SupplierName);
+    return value<SupplierName>();
 }
 
 void Reflectogram::setSupplierName(const String &name)
 {
-    setValue<StringField>(name,
-                          MainBlock::SupplierParameters,
-                          SupplierParametersBlock::SupplierName);
+    setValue<SupplierName>(name);
 }
 
 String Reflectogram::otdrName() const
 {
-    return value<StringField>(MainBlock::SupplierParameters,
-                              SupplierParametersBlock::OtdrName);
+    return value<OtdrName>();
 }
 
 void Reflectogram::setOtdrName(const String &name)
 {
-    setValue<StringField>(name,
-                          MainBlock::SupplierParameters,
-                          SupplierParametersBlock::OtdrName);
+    setValue<OtdrName>(name);
 }
 
 String Reflectogram::otdrSerialNumber() const
 {
-    return value<StringField>(MainBlock::SupplierParameters,
-                              SupplierParametersBlock::OtdrSerialNumber);
+    return value<OtdrSerialNumber>();
 }
 
 void Reflectogram::setOtdrSerialNumber(const String &sn)
 {
-    setValue<StringField>(sn,
-                          MainBlock::SupplierParameters,
-                          SupplierParametersBlock::OtdrSerialNumber);
+    setValue<OtdrSerialNumber>(sn);
 }
 
 String Reflectogram::moduleName() const
 {
-    return value<StringField>(MainBlock::SupplierParameters,
-                              SupplierParametersBlock::ModuleName);
+    return value<ModuleName>();
 }
 
 void Reflectogram::setModuleName(const String &name)
 {
-    setValue<StringField>(name,
-                          MainBlock::SupplierParameters,
-                          SupplierParametersBlock::ModuleName);
+    setValue<ModuleName>(name);
 }
 
 String Reflectogram::moduleSerialNumber() const
 {
-    return value<StringField>(MainBlock::SupplierParameters,
-                              SupplierParametersBlock::ModuleSerialNumber);
+    return value<ModuleSerialNumber>();
 }
 
 void Reflectogram::setModuleSerialNumber(const String &sn)
 {
-    setValue<StringField>(sn,
-                          MainBlock::SupplierParameters,
-                          SupplierParametersBlock::ModuleSerialNumber);
+    setValue<ModuleSerialNumber>(sn);
 }
 
 String Reflectogram::softwareVersion() const
 {
-    return value<StringField>(MainBlock::SupplierParameters,
-                              SupplierParametersBlock::SoftwareVersion);
+    return value<SoftwareVersion>();
 }
 
 void Reflectogram::setSoftwareVersion(const String &version)
 {
-    setValue<StringField>(version,
-                          MainBlock::SupplierParameters,
-                          SupplierParametersBlock::SoftwareVersion);
+    setValue<SoftwareVersion>(version);
 }
 
 String Reflectogram::supplierOther() const
 {
-    return value<StringField>(MainBlock::SupplierParameters,
-                              SupplierParametersBlock::Other);
+    return value<SupplierOther>();
 }
 
 void Reflectogram::setSupplierOther(const String &other)
 {
-    setValue<StringField>(other,
-                          MainBlock::SupplierParameters,
-                          SupplierParametersBlock::Other);
+    setValue<SupplierOther>(other);
 }
 
-LittleUInt32 Reflectogram::dateTime() const
+LeUInt32 Reflectogram::dateTime() const
 {
-    return value<LittleUInt32Field>(MainBlock::FixedParameters,
-                                    FixedParametersBlock::DateTime);
+    return value<DateTime>();
 }
 
-void Reflectogram::setDateTime(LittleUInt32 dateTime)
+void Reflectogram::setDateTime(LeUInt32 dateTime)
 {
-    setValue<LittleUInt32Field>(dateTime,
-                                MainBlock::FixedParameters,
-                                FixedParametersBlock::DateTime);
+    setValue<DateTime>(dateTime);
 }
 
-LittleUInt16 Reflectogram::wavelength() const
+LeUInt16 Reflectogram::wavelength() const
 {
-    return value<LittleUInt16Field>(MainBlock::FixedParameters,
-                                    FixedParametersBlock::Wavelength);
+    return value<Wavelength>();
 }
 
-void Reflectogram::setWavelength(LittleUInt16 wavelength)
+void Reflectogram::setWavelength(LeUInt16 wavelength)
 {
-    setValue<LittleUInt16Field>(wavelength,
-                                MainBlock::FixedParameters,
-                                FixedParametersBlock::Wavelength);
+    setValue<Wavelength>(wavelength);
 }
 
-LittleUInt16 Reflectogram::pulseWidth() const
+LeUInt16 Reflectogram::pulseWidth() const
 {
-    return value<LittleUInt16Field>(MainBlock::FixedParameters,
-                                    FixedParametersBlock::PulseWidth);
+    return value<PulseWidth>();
 }
 
-void Reflectogram::setPulseWidth(LittleUInt16 pulseWidth)
+void Reflectogram::setPulseWidth(LeUInt16 pulseWidth)
 {
-    setValue<LittleUInt16Field>(pulseWidth,
-                                MainBlock::FixedParameters,
-                                FixedParametersBlock::PulseWidth);
+    setValue<PulseWidth>(pulseWidth);
 }
 
-LittleUInt32 Reflectogram::sampleSpacing() const
+LeUInt32 Reflectogram::sampleSpacing() const
 {
-    return value<LittleUInt32Field>(MainBlock::FixedParameters,
-                                    FixedParametersBlock::SampleSpacing);
+    return value<SampleSpacing>();
 }
 
-void Reflectogram::setSampleSpacing(LittleUInt32 spacing)
+void Reflectogram::setSampleSpacing(LeUInt32 spacing)
 {
-    setValue<LittleUInt32Field>(spacing,
-                                MainBlock::FixedParameters,
-                                FixedParametersBlock::SampleSpacing);
+    setValue<SampleSpacing>(spacing);
 }
 
-LittleUInt32 Reflectogram::indexOfRefraction() const
+LeUInt32 Reflectogram::indexOfRefraction() const
 {
-    return value<LittleUInt32Field>(MainBlock::FixedParameters,
-                                    FixedParametersBlock::IndexOfRefraction);
+    return value<IndexOfRefraction>();
 }
 
-void Reflectogram::setIndexOfRefraction(LittleUInt32 ior)
+void Reflectogram::setIndexOfRefraction(LeUInt32 ior)
 {
-    setValue<LittleUInt32Field>(ior,
-                                MainBlock::FixedParameters,
-                                FixedParametersBlock::IndexOfRefraction);
+    setValue<IndexOfRefraction>(ior);
 }
 
-LittleUInt16 Reflectogram::backscatteringCoefficient() const
+LeUInt16 Reflectogram::backscatteringCoefficient() const
 {
-    return value<LittleUInt16Field>(MainBlock::FixedParameters,
-                                    FixedParametersBlock::BackscatteringCoefficient);
+    return value<BackscatteringCoefficient>();
 }
 
-void Reflectogram::setBackscatteringCoefficient(LittleUInt16 coef)
+void Reflectogram::setBackscatteringCoefficient(LeUInt16 coef)
 {
-    setValue<LittleUInt16Field>(coef,
-                                MainBlock::FixedParameters,
-                                FixedParametersBlock::BackscatteringCoefficient);
+    setValue<BackscatteringCoefficient>(coef);
 }
 
-LittleInt32 Reflectogram::fiberStartPosition() const
+LeInt32 Reflectogram::fiberStartPosition() const
 {
-    return value<LittleInt32Field>(MainBlock::KeyEvents,
-                                   KeyEventsBlock::FiberStartPosition);
+    return value<FiberStartPosition>();
 }
 
-void Reflectogram::setFiberStartPosition(LittleInt32 startPos)
+void Reflectogram::setFiberStartPosition(LeInt32 startPos)
 {
-    setValue<LittleInt32Field>(startPos,
-                               MainBlock::KeyEvents,
-                               KeyEventsBlock::FiberStartPosition);
+    setValue<FiberStartPosition>(startPos);
 }
 
-LittleUInt16 Reflectogram::scalingFactor() const
+LeUInt16 Reflectogram::scalingFactor() const
 {
-    return value<LittleUInt16Field>(MainBlock::DataPoints,
-                                    DataPointsBlock::ScalingFactor);
+    return value<ScalingFactor>();
 }
 
-void Reflectogram::setScalingFactor(LittleUInt16 factor)
+void Reflectogram::setScalingFactor(LeUInt16 factor)
 {
-    setValue<LittleUInt16Field>(factor,
-                                MainBlock::DataPoints,
-                                DataPointsBlock::ScalingFactor);
+    setValue<ScalingFactor>(factor);
 }
 
-LittleUInt16Vector Reflectogram::points() const
+LeUInt16Vector Reflectogram::points() const
 {
-    return value<LittleUInt16VectorField>(MainBlock::DataPoints,
-                                          DataPointsBlock::Points);
+    return value<Points>();
 }
 
-void Reflectogram::setPoints(LittleUInt16Vector points)
+void Reflectogram::setPoints(LeUInt16Vector points)
 {
-    setValue<LittleUInt16VectorField>(points,
-                                      MainBlock::DataPoints,
-                                      DataPointsBlock::Points);
-}
-
-template<class Field, class ...Ids>
-typename Field::ValueType Reflectogram::value(Ids ...ids) const
-{
-    if (!m_mainBlock)
-        return typename Field::ValueType();
-
-    return m_mainBlock->descendant<Field>(ids...)->value();
-}
-
-template<class Field, class ...Ids>
-void Reflectogram::setValue(const typename Field::ValueType &value, Ids ...ids)
-{
-    if (!m_mainBlock)
-        return;
-
-    m_mainBlock->descendant<Field>(ids...)->setValue(value);
+    setValue<Points>(points);
 }
 
 } // namespace Core

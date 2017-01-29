@@ -1,8 +1,6 @@
 #include "datapointsblock.h"
 
-#include "../fields/intfield.h"
 #include "../fields/fixedrawfield.h"
-#include "../fields/littleuint16vectorfield.h"
 
 #include "../abstractinputbuffer.h"
 
@@ -14,7 +12,7 @@ bool DataPointsBlock::readChildren(AbstractInputBuffer &buffer)
     LittleUInt32Field *countCopy;
 
     bool readed =
-            (count = createChild<LittleUInt32Field>(PointsCount))
+            (count = createChild<DataPoints::PointsCount>())
                 ->read(buffer)
             && createChild<FixedRawField<2>>()->read(buffer)
             && (countCopy = createChild<LittleUInt32Field>())
@@ -23,14 +21,14 @@ bool DataPointsBlock::readChildren(AbstractInputBuffer &buffer)
     if (!readed)
         return false;
 
-    count->valueChanged.connect([countCopy](LittleUInt32 value) {
+    count->valueChanged.connect([countCopy](LeUInt32 value) {
         countCopy->setValue(value);
     });
 
-    if (!createChild<LittleUInt16Field>(ScalingFactor)->read(buffer))
+    if (!createChild<DataPoints::ScalingFactor>()->read(buffer))
         return false;
 
-    auto points = createChild<LittleUInt16VectorField>(Points);
+    auto points = createChild<DataPoints::Points>();
     if (!points->read(buffer, count->value()))
         return false;
 

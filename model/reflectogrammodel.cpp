@@ -240,7 +240,7 @@ bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value,
         if (r.empty() || !value.canConvert<QDateTime>())
             return false;
 
-        Core::LittleUInt32 newDateTime = value.toDateTime().toTime_t();
+        Core::LeUInt32 newDateTime = value.toDateTime().toTime_t();
         if (r.dateTime() != newDateTime) {
             r.setDateTime(newDateTime);
             emit dataChanged(index, index);
@@ -252,7 +252,7 @@ bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value,
         if (r.empty() || !value.canConvert<double>())
             return false;
 
-        Core::LittleUInt16 newWavelength = value.toDouble()*10;
+        Core::LeUInt16 newWavelength = value.toDouble()*10;
         if (r.wavelength() != newWavelength) {
             r.setWavelength(newWavelength);
             emit dataChanged(index, index);
@@ -264,7 +264,7 @@ bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value,
         if (r.empty() || !value.canConvert<int>())
             return false;
 
-        Core::LittleUInt16 newPulseWidth = value.toInt();
+        Core::LeUInt16 newPulseWidth = value.toInt();
         if (r.pulseWidth() != newPulseWidth) {
             r.setPulseWidth(newPulseWidth);
             emit dataChanged(index, index);
@@ -276,7 +276,7 @@ bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value,
         if (r.empty() || !value.canConvert<double>())
             return false;
 
-        Core::LittleUInt32 newSampleSpacing = value.toDouble()*100;
+        Core::LeUInt32 newSampleSpacing = value.toDouble()*100;
         if (r.sampleSpacing() != newSampleSpacing) {
             r.setSampleSpacing(newSampleSpacing);
             emit dataChanged(index, index);
@@ -288,7 +288,7 @@ bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value,
         if (r.empty() || !value.canConvert<double>())
             return false;
 
-        Core::LittleUInt32 newIndexOfRefraction = value.toDouble()*100000;
+        Core::LeUInt32 newIndexOfRefraction = value.toDouble()*100000;
         if (r.indexOfRefraction() != newIndexOfRefraction) {
             r.setIndexOfRefraction(newIndexOfRefraction);
             emit dataChanged(index, index);
@@ -300,7 +300,7 @@ bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value,
         if (r.empty() || !value.canConvert<int>())
             return false;
 
-        Core::LittleUInt16 newBackscatteringCoefficient = value.toInt();
+        Core::LeUInt16 newBackscatteringCoefficient = value.toInt();
         if (r.backscatteringCoefficient() != newBackscatteringCoefficient) {
             r.setBackscatteringCoefficient(newBackscatteringCoefficient);
             emit dataChanged(index, index);
@@ -312,7 +312,7 @@ bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value,
         if (r.empty() || !value.canConvert<double>())
             return false;
 
-        Core::LittleInt32 newFiberStartPosition = value.toDouble()*10;
+        Core::LeInt32 newFiberStartPosition = value.toDouble()*10;
         if (r.fiberStartPosition() != newFiberStartPosition) {
             r.setFiberStartPosition(newFiberStartPosition);
             emit dataChanged(index, index);
@@ -321,10 +321,10 @@ bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value,
         return true;
     }
     case PointsColumn: {
-        if (r.empty() || !value.canConvert<Core::LittleUInt16Vector>())
+        if (r.empty() || !value.canConvert<Core::LeUInt16Vector>())
             return false;
 
-        Core::LittleUInt16Vector newPoints = value.value<Core::LittleUInt16Vector>();
+        Core::LeUInt16Vector newPoints = value.value<Core::LeUInt16Vector>();
         if (r.points() != newPoints) {
             r.setPoints(newPoints);
             emit dataChanged(index, index);

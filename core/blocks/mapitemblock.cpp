@@ -1,44 +1,37 @@
 #include "mapitemblock.h"
 
-#include "mainblockchildid.h"
-
-#include "../fields/intfield.h"
-#include "../fields/stringfield.h"
-
 #include "../abstractinputbuffer.h"
 
 namespace Core {
 
-using Mbci = MainBlockChildId;
-
 bool MapItemBlock::readChildren(AbstractInputBuffer &buffer)
 {
-    return createChild<StringField>(Name)->read(buffer)
-            && createChild<LittleUInt16Field>(Version)->read(buffer)
-            && createChild<LittleUInt32Field>(Size)->read(buffer);
+    return createChild<MapItem::Name>()->read(buffer)
+            && createChild<MapItem::Version>()->read(buffer)
+            && createChild<MapItem::Size>()->read(buffer);
 }
 
-int MapItemBlock::reflectogramChildId() const
+Main MapItemBlock::mainChildId() const
 {
-    auto name = child<StringField>(Name);
+    auto name = child<MapItem::Name>();
     if (!name)
-        return -1;
+        return Main::InvalidId;
 
-    auto it = m_reflectogramChildIdMap.find(name->value());
-    return it != m_reflectogramChildIdMap.end()
+    auto it = m_mainChildIdMap.find(name->value());
+    return it != m_mainChildIdMap.end()
             ? it->second
-            : -1;
+            : Main::InvalidId;
 }
 
-const MapItemBlock::IdMap MapItemBlock::m_reflectogramChildIdMap = {
-    {"GenParams",     Mbci::GeneralParameters},
-    {"SupParams",     Mbci::SupplierParameters},
-    {"FxdParams",     Mbci::FixedParameters},
-    {"KeyEvents",     Mbci::KeyEvents},
-    {"LnkParams",     Mbci::LinkParameters},
-    {"DataPts",       Mbci::DataPoints},
-    {"NetTekOTDR1.0", Mbci::NetTekOtdr10},
-    {"Cksum",         Mbci::Checksum}
+const MapItemBlock::IdMap MapItemBlock::m_mainChildIdMap = {
+    {"GenParams",     Main::GeneralParameters},
+    {"SupParams",     Main::SupplierParameters},
+    {"FxdParams",     Main::FixedParameters},
+    {"KeyEvents",     Main::KeyEvents},
+    {"LnkParams",     Main::LinkParameters},
+    {"DataPts",       Main::DataPoints},
+    {"NetTekOTDR1.0", Main::NetTekOtdr10},
+    {"Cksum",         Main::Checksum}
 };
 
 } // namespace Core

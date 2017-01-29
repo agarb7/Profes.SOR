@@ -1,29 +1,41 @@
 #ifndef MAPITEMBLOCK_H
 #define MAPITEMBLOCK_H
 
-#include "../block.h"
+#include "mainchildid.h"
+
+#include "../fields/intfield.h"
+#include "../fields/stringfield.h"
+
+#include "../mappingblock.h"
 
 #include <unordered_map>
 
 namespace Core {
 
-class MapItemBlock: public Block
+enum class MapItem {
+    Name,
+    Version,
+    Size
+};
+
+template<>
+struct IdMap<MapItem>: IdMapBase<
+    IdMapItem<MapItem, MapItem::Name, StringField>,
+    IdMapItem<MapItem, MapItem::Version, LittleUInt16Field>,
+    IdMapItem<MapItem, MapItem::Size, LittleUInt32Field>
+>{};
+
+class MapItemBlock: public MappingBlock<MapItem>
 {
 public:
-    enum {
-        Name,
-        Version,
-        Size
-    };
-
     virtual bool readChildren(AbstractInputBuffer &buffer);
 
-    int reflectogramChildId() const;
+    Main mainChildId() const;
 
 private:
-    using IdMap = std::unordered_map<String, int>;
+    using IdMap = std::unordered_map<String, Main>;
 
-    static const IdMap m_reflectogramChildIdMap;
+    static const IdMap m_mainChildIdMap;
 };
 
 } // namespace Core

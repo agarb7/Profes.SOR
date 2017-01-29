@@ -3,7 +3,7 @@
 
 #include "../field.h"
 
-#include "../definitions.h"
+#include "../types.h"
 
 namespace Core {
 
@@ -12,7 +12,7 @@ class AbstractInputBuffer;
 class LittleUInt16VectorField: public Field
 {
 public:
-    using ValueType = LittleUInt16Vector;
+    using ValueType = LeUInt16Vector;
 
     virtual SizeType size() const;
 
@@ -20,16 +20,16 @@ public:
 
     bool read(AbstractInputBuffer &buffer, SizeType count);
 
-    LittleUInt16Vector value() const;
-    void setValue(const LittleUInt16Vector &value);
+    LeUInt16Vector value() const;
+    void setValue(const LeUInt16Vector &value);
 
     Signal<void(SizeType)> countChanged;
-    Signal<void(const LittleUInt16Vector&)> valueChanged;
+    Signal<void(const LeUInt16Vector&)> valueChanged;
 
 private:
-    void swapData(LittleUInt16Vector& value);
+    void swapData(LeUInt16Vector& value);
 
-    LittleUInt16Vector m_data;
+    LeUInt16Vector m_data;
 };
 
 } // namespace Core

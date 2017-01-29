@@ -1,7 +1,7 @@
 #ifndef ABSTRACTINPUTBUFFER_H
 #define ABSTRACTINPUTBUFFER_H
 
-#include "definitions.h"
+#include "types.h"
 
 namespace Core {
 

@@ -1,24 +1,28 @@
 #ifndef MAINBLOCK_H
 #define MAINBLOCK_H
 
-#include "mainblockchildid.h"
+#include "mainchildid.h"
 
-#include "../block.h"
+#include "../mappingblock.h"
 
 namespace Core {
 
-class MainBlock : public Block, public MainBlockChildId
+class RawBlock;
+
+class MainBlock : public MappingBlock<Main>
 {
 public:
     virtual bool readChildren(AbstractInputBuffer &buffer);
 
 private:    
-    Block *createChildById(int id, SizeType size);
+    Block *createChildById(Main id, SizeType size);
 
-    template <class RawChild>
-    RawChild *createRawChild(int id, SizeType size)
+    RawBlock *createRawChild(SizeType size);
+
+    template <Main Id>
+    Block *createRawChild(SizeType size)
     {
-        auto raw = createChild<RawChild>(id);
+        auto raw = createChild<Id>();
         raw->setReadingSize(size);
 
         return raw;

@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "definitions.h"
+#include "types.h"
 
 namespace Core {
 

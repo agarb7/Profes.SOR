@@ -32,30 +32,7 @@ Block::ChildIterator Block::childIterator(const Node *node) const
 }
 
 void Block::addChild(Node *child)
-{
-    addChildImpl(child);
-}
-
-void Block::addChild(int id, Node *child)
-{
-    addChildImpl(child, id);
-}
-
-void Block::idIndex(int id, Node *child)
-{
-    if (id < 0)
-        return;
-
-    SizeType index = id;
-    if (index >= m_idChildrenMap.size())
-        m_idChildrenMap.resize(index+1);
-
-    m_idChildrenMap[index] = child;
-}
-
-template <class ...Ids>
-void Block::addChildImpl(Node *child, Ids ...ids)
-{
+{    
     SizeType pos = m_children.size();
     m_children.push_back(child);
 
@@ -63,9 +40,7 @@ void Block::addChildImpl(Node *child, Ids ...ids)
     child->m_position = pos;
 
     SizeType oldSize = m_size;
-    m_size += child->size();
-
-    idIndex(ids..., child);
+    m_size += child->size();    
 
     child->sizeChanged.connect([this](SizeType oldChildSize, SizeType newChildSize) {
         SizeType oldSize = m_size;

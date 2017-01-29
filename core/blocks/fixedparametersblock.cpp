@@ -1,7 +1,5 @@
 #include "fixedparametersblock.h"
 
-#include "../fields/intfield.h"
-#include "../fields/fixedstringfield.h"
 #include "../fields/fixedrawfield.h"
 
 #include "../abstractinputbuffer.h"
@@ -10,21 +8,21 @@ namespace Core {
 
 bool FixedParametersBlock::readChildren(AbstractInputBuffer &buffer)
 {
-    return createChild<LittleUInt32Field>(DateTime)->read(buffer)
-            && createChild<String2Field>(Units)->read(buffer)
-            && createChild<LittleUInt16Field>(Wavelength)->read(buffer)
+    return createChild<FixedParameters::DateTime>()->read(buffer)
+            && createChild<FixedParameters::Units>()->read(buffer)
+            && createChild<FixedParameters::Wavelength>()->read(buffer)
             && createChild<FixedRawField<6>>()->read(buffer)
-            && createChild<LittleUInt16Field>(PulseWidth)->read(buffer)
-            && createChild<LittleUInt32Field>(SampleSpacing)->read(buffer)
-            && createChild<LittleUInt32Field>(DataPointsCount)->read(buffer)
-            && createChild<LittleUInt32Field>(IndexOfRefraction)->read(buffer)
-            && createChild<LittleUInt16Field>(BackscatteringCoefficient)->read(buffer)
-            && createChild<LittleUInt32Field>(NumberOfAverages)->read(buffer)
-            && createChild<LittleUInt32Field>(Range)->read(buffer)
+            && createChild<FixedParameters::PulseWidth>()->read(buffer)
+            && createChild<FixedParameters::SampleSpacing>()->read(buffer)
+            && createChild<FixedParameters::DataPointsCount>()->read(buffer)
+            && createChild<FixedParameters::IndexOfRefraction>()->read(buffer)
+            && createChild<FixedParameters::BackscatteringCoefficient>()->read(buffer)
+            && createChild<FixedParameters::NumberOfAverages>()->read(buffer)
+            && createChild<FixedParameters::Range>()->read(buffer)
             && createChild<FixedRawField<10>>()->read(buffer)
-            && createChild<LittleUInt16Field>(LossThreshold)->read(buffer)
-            && createChild<LittleUInt16Field>(ReflectionThreshold)->read(buffer)
-            && createChild<LittleUInt16Field>(EndOfTransmissionThreshold)->read(buffer);
+            && createChild<FixedParameters::LossThreshold>()->read(buffer)
+            && createChild<FixedParameters::ReflectionThreshold>()->read(buffer)
+            && createChild<FixedParameters::EndOfTransmissionThreshold>()->read(buffer);
 }
 
 } // namespace Core

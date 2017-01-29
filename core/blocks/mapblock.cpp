@@ -2,19 +2,16 @@
 
 #include "mapitemblock.h"
 
-#include "../fields/intfield.h"
-#include "../fields/stringfield.h"
-
 #include "../abstractinputbuffer.h"
 
 namespace Core {
 
 bool MapBlock::readChildren(AbstractInputBuffer &buffer)
 {
-    if (!createChild<LittleUInt16Field>(Version)->read(buffer))
+    if (!createChild<Map::Version>()->read(buffer))
         return false;
 
-    auto size = createChild<LittleUInt32Field>(Size);
+    auto size = createChild<Map::Size>();
     if (!size->read(buffer))
         return false;
 
@@ -22,7 +19,7 @@ bool MapBlock::readChildren(AbstractInputBuffer &buffer)
         size->setValue(newSize);
     });
 
-    auto count = createChild<LittleUInt16Field>(ItemsCount);
+    auto count = createChild<Map::ItemsCount>();
     if (!count->read(buffer))
         return false;
 
@@ -36,7 +33,7 @@ bool MapBlock::readChildren(AbstractInputBuffer &buffer)
 
 MapBlock::ItemIterator MapBlock::itemsBegin() const
 {
-    return ItemIterator(childrenBegin()+ItemsOffset);
+    return ItemIterator(childrenBegin()+m_itemsOffset);
 }
 
 MapBlock::ItemIterator MapBlock::itemsEnd() const

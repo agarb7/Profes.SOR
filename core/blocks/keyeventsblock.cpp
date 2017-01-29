@@ -1,8 +1,6 @@
 #include "keyeventsblock.h"
 
-#include "keyeventblock.h"
-
-#include "../fields/intfield.h"
+#include "keyeventsitemblock.h"
 
 #include "../abstractinputbuffer.h"
 
@@ -10,12 +8,12 @@ namespace Core {
 
 bool KeyEventsBlock::readChildren(AbstractInputBuffer &buffer)
 {
-    auto count = createChild<LittleUInt16Field>(EventsCount);
+    auto count = createChild<KeyEvents::EventsCount>();
     if (!count->read(buffer))
         return false;
 
     for (SizeType i=0, n=count->value(); i<n; ++i) {
-        if (!createChild<KeyEventBlock>()->readChildren(buffer))
+        if (!createChild<KeyEventsItemBlock>()->readChildren(buffer))
             return false;
     }
 
@@ -24,12 +22,12 @@ bool KeyEventsBlock::readChildren(AbstractInputBuffer &buffer)
     LittleInt32Field *fiberStartCopy;
     LittleUInt32Field *fiberLengthCopy;
 
-    bool result = createChild<LittleInt32Field>(TotalLoss)->read(buffer)
-            && (fiberStart = createChild<LittleInt32Field>(FiberStartPosition))
+    bool result = createChild<KeyEvents::TotalLoss>()->read(buffer)
+            && (fiberStart = createChild<KeyEvents::FiberStartPosition>())
                 ->read(buffer)
-            && (fiberLength = createChild<LittleUInt32Field>(FiberLength))
+            && (fiberLength = createChild<KeyEvents::FiberLength>())
                 ->read(buffer)
-            && createChild<LittleUInt16Field>(OpticalReturnLoss)->read(buffer)
+            && createChild<KeyEvents::OpticalReturnLoss>()->read(buffer)
             && (fiberStartCopy = createChild<LittleInt32Field>())
                 ->read(buffer)
             && (fiberLengthCopy = createChild<LittleUInt32Field>())
@@ -38,11 +36,11 @@ bool KeyEventsBlock::readChildren(AbstractInputBuffer &buffer)
     if (!result)
         return false;
 
-    fiberStart->valueChanged.connect([fiberStartCopy](LittleInt32 value) {
+    fiberStart->valueChanged.connect([fiberStartCopy](LeInt32 value) {
         fiberStartCopy->setValue(value);
     });
 
-    fiberLength->valueChanged.connect([fiberLengthCopy](LittleUInt32 value) {
+    fiberLength->valueChanged.connect([fiberLengthCopy](LeUInt32 value) {
         fiberLengthCopy->setValue(value);
     });
 

@@ -1,19 +1,29 @@
 #ifndef DATAPOINTSBLOCK_H
 #define DATAPOINTSBLOCK_H
 
-#include "../block.h"
+#include "../fields/littleuint16vectorfield.h"
+#include "../fields/intfield.h"
+
+#include "../mappingblock.h"
 
 namespace Core {
 
-class DataPointsBlock: public Block
+enum class DataPoints {
+    PointsCount,
+    ScalingFactor,
+    Points
+};
+
+template<>
+struct IdMap<DataPoints>: IdMapBase<
+    IdMapItem<DataPoints, DataPoints::PointsCount, LittleUInt32Field>,
+    IdMapItem<DataPoints, DataPoints::ScalingFactor, LittleUInt16Field>,
+    IdMapItem<DataPoints, DataPoints::Points, LittleUInt16VectorField>
+>{};
+
+class DataPointsBlock: public MappingBlock<DataPoints>
 {
 public:
-    enum {
-        PointsCount,
-        ScalingFactor,
-        Points
-    };
-
     virtual bool readChildren(AbstractInputBuffer &buffer);
 };
 
