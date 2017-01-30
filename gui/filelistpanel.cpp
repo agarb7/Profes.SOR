@@ -12,7 +12,7 @@ FileListPanel::FileListPanel(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->listView->setModelColumn(ReflectogramModel::FilePathColumn);
+    ui->listView->setModelColumn(int(ReflectogramModelColumn::FilePath));
     connect(ui->listView, &QListView::activated, [this](const QModelIndex &index) {
         emit activated(index.row());
     });
@@ -55,7 +55,7 @@ void FileListPanel::addFiles()
     for (QString file: files) {
         int row = model->rowCount();
         model->insertRow(row);
-        QModelIndex index = model->index(row, ReflectogramModel::FilePathColumn);
+        QModelIndex index = model->index(row, int(ReflectogramModelColumn::FilePath));
         model->setData(index, file);
         if (!model->readFile(row)) {
             model->removeRow(row);

@@ -1,6 +1,8 @@
 #ifndef REFLECTOGRAMWIDGET_H
 #define REFLECTOGRAMWIDGET_H
 
+#include "model/reflectogrammodelcolumn.h"
+
 #include <QWidget>
 #include <QDataWidgetMapper>
 
@@ -27,8 +29,8 @@ public slots:
     void setCurrentIndex(int index);    
 
 private:
-    void setupItemModel(ReflectogramModel *model, int section,
-                        QWidget *editor, Label *label, ToAllButton *button = 0);
+    void setupItemModel(ReflectogramModel *model, ReflectogramModelColumn columnId,
+                        QWidget *editor, Label *label = 0, ToAllButton *button = 0);
 
     Ui::ReflectogramWidget *ui;
     QDataWidgetMapper m_mapper;

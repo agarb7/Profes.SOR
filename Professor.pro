@@ -6,6 +6,8 @@
 
 QT       += core gui
 
+CONFIG(release, debug|release): DEFINES += NDEBUG
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Professor
@@ -35,7 +37,9 @@ SOURCES += main.cpp\
     gui/reflectogramwidget.cpp \
     gui/filelistpanel.cpp \
     gui/mainwindow.cpp \
-    core/blocks/keyeventsitemblock.cpp
+    core/blocks/keyeventsitemblock.cpp \
+    model/columnmap.cpp \
+    model/columns/samplespacingmetercolumn.cpp
 
 HEADERS  += \ 
     core/blocks/checksumblock.h \
@@ -72,7 +76,17 @@ HEADERS  += \
     core/blocks/mainchildid.h \
     core/blocks/keyeventsitemblock.h \
     core/types.h \
-    core/mptypes.h
+    core/mptypes.h \
+    model/abstractcolumn.h \
+    model/columns/typedcolumn.h \
+    model/columns/intcolumn.h \
+    model/columns/stringcolumn.h \
+    model/columns/doublecolumn.h \
+    model/columnmap.h \
+    model/reflectogrammodelcolumn.h \
+    model/columns/datetimecolumn.h \
+    model/columns/pointscolumn.h \
+    model/columns/samplespacingmetercolumn.h
 
 FORMS    += \
     gui/reflectogramwidget.ui \

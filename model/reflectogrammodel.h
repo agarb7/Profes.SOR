@@ -1,6 +1,8 @@
 #ifndef REFLECTOGRAMMODEL_H
 #define REFLECTOGRAMMODEL_H
 
+#include "columnmap.h"
+
 #include "core/reflectogram.h"
 
 #include <QAbstractTableModel>
@@ -10,27 +12,9 @@
 
 class ReflectogramModel : public QAbstractTableModel
 {
-public:
-    enum Column {
-        FilePathColumn,
-        SupplierNameColumn,
-        OtdrNameColumn,
-        OtdrSerialNumberColumn,
-        ModuleNameColumn,
-        ModuleSerialNumberColumn,
-        SoftwareVersionColumn,
-        SupplierOtherColumn,
-        DateTimeColumn,
-        WavelengthColumn, // in nanometers
-        PulseWidthColumn, // in nanoseconds
-        SampleSpacingColumn, // in picoseconds
-        IndexOfRefractionColumn,
-        BackscatteringCoefficientColumn,
-        FiberStartPositionColumn, // in nanoseconds
-        PointsColumn,
-        ColumnsCount
-    };
+    Q_OBJECT
 
+public:
     ReflectogramModel(QObject *parent = 0);
 
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -45,8 +29,6 @@ public:
     virtual bool insertRows(int row, int count, const QModelIndex &parent = QModelIndex());
     virtual bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
 
-    int scalingFactor(int row) const;
-
     bool readFile(int row);
     bool saveFile(int row);
 
@@ -56,21 +38,11 @@ private:
         Core::Reflectogram reflectogram;
     };
 
-    template <Column Col>
-    struct ColumnTraits
-    {
-
-        using NativeType = void;
-        using ModelType = void;
-    };
-
     bool rowInBound(int row) const;
     bool columnInBound(int col) const;
     bool inBound(const QModelIndex &index) const;
 
-    std::vector<Row> m_data;
+    std::vector<Row> m_data;    
 };
-
-Q_DECLARE_METATYPE(Core::LeUInt16Vector)
 
 #endif // REFLECTOGRAMMODEL_H

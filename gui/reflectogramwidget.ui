@@ -162,48 +162,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="Label" name="wavelengthLabel">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="Label" name="pulseWidthLabel">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="Label" name="sampleSpacingLabel">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="Label" name="indexOfRefractionLabel">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="Label" name="backscatteringCoefficientLabel">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="Label" name="fiberStartPositionLabel">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
@@ -218,10 +176,20 @@
          </item>
         </layout>
        </item>
+       <item row="1" column="0">
+        <widget class="Label" name="wavelengthLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_10">
          <item>
           <widget class="QDoubleSpinBox" name="wavelengthEdit">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
            <property name="suffix">
             <string> nm</string>
            </property>
@@ -231,6 +199,9 @@
            <property name="maximum">
             <double>999999999.000000000000000</double>
            </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
           </widget>
          </item>
          <item>
@@ -238,10 +209,20 @@
          </item>
         </layout>
        </item>
+       <item row="2" column="0">
+        <widget class="Label" name="pulseWidthLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_11">
          <item>
           <widget class="QSpinBox" name="pulseWidthEdit">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
            <property name="suffix">
             <string> ns</string>
            </property>
@@ -258,15 +239,44 @@
          </item>
         </layout>
        </item>
+       <item row="3" column="0">
+        <widget class="Label" name="sampleSpacingLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item row="3" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_12">
+        <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="0,0,0">
+         <item>
+          <widget class="QDoubleSpinBox" name="sampleSpacingMeterEdit">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="buttonSymbols">
+            <enum>QAbstractSpinBox::NoButtons</enum>
+           </property>
+           <property name="suffix">
+            <string> m</string>
+           </property>
+           <property name="maximum">
+            <double>999999999.000000000000000</double>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QDoubleSpinBox" name="sampleSpacingEdit">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
            <property name="suffix">
             <string> ps</string>
            </property>
            <property name="maximum">
             <double>999999999.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.010000000000000</double>
            </property>
           </widget>
          </item>
@@ -275,15 +285,28 @@
          </item>
         </layout>
        </item>
+       <item row="4" column="0">
+        <widget class="Label" name="indexOfRefractionLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item row="4" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_13">
          <item>
           <widget class="QDoubleSpinBox" name="indexOfRefractionEdit">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
            <property name="decimals">
             <number>5</number>
            </property>
            <property name="maximum">
             <double>999999999.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.000010000000000</double>
            </property>
           </widget>
          </item>
@@ -292,12 +315,34 @@
          </item>
         </layout>
        </item>
+       <item row="5" column="0">
+        <widget class="Label" name="backscatteringCoefficientLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item row="5" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <item>
-          <widget class="QSpinBox" name="backscatteringCoefficientEdit">
+          <widget class="QDoubleSpinBox" name="backscatteringCoefficientEdit">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
+           <property name="suffix">
+            <string> dB</string>
+           </property>
+           <property name="decimals">
+            <number>1</number>
+           </property>
+           <property name="minimum">
+            <double>-999999999.000000000000000</double>
+           </property>
            <property name="maximum">
-            <number>999999999</number>
+            <double>0.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
            </property>
           </widget>
          </item>
@@ -306,10 +351,20 @@
          </item>
         </layout>
        </item>
+       <item row="6" column="0">
+        <widget class="Label" name="fiberStartPositionLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item row="6" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_15">
          <item>
           <widget class="QDoubleSpinBox" name="fiberStartPositionEdit">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
            <property name="suffix">
             <string> ns</string>
            </property>
@@ -318,6 +373,9 @@
            </property>
            <property name="maximum">
             <double>999999999.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
            </property>
           </widget>
          </item>

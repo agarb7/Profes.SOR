@@ -122,14 +122,13 @@ private:
     >;
 
     template <Field field>
+    using Ics = MplAt<FieldMap, Ic<Field, field>>;
+
+public:    
+    template <Field field>
     using ValueType = typename DescendantNodeType<
         MplAt<FieldMap, Ic<Field, field>>
     >::ValueType;
-
-    template <Field field>
-    using Ics = MplAt<FieldMap, Ic<Field, field>>;
-
-public:
 
     using DataIterator = Block::DataIterator;
 
@@ -164,54 +163,6 @@ public:
     }
 
     void calculateChecksum();
-
-    String supplierName() const;
-    void setSupplierName(const String &name);
-
-    String otdrName() const;
-    void setOtdrName(const String &name);
-
-    String otdrSerialNumber() const;
-    void setOtdrSerialNumber(const String &sn);
-
-    String moduleName() const;
-    void setModuleName(const String &name);
-
-    String moduleSerialNumber() const;
-    void setModuleSerialNumber(const String &sn);
-
-    String softwareVersion() const;
-    void setSoftwareVersion(const String &version);
-
-    String supplierOther() const;
-    void setSupplierOther(const String &other);
-
-    LeUInt32 dateTime() const;
-    void setDateTime(LeUInt32 dateTime);
-
-    LeUInt16 wavelength() const;
-    void setWavelength(LeUInt16 wavelength);
-
-    LeUInt16 pulseWidth() const;
-    void setPulseWidth(LeUInt16 pulseWidth);
-
-    LeUInt32 sampleSpacing() const;
-    void setSampleSpacing(LeUInt32 spacing);
-
-    LeUInt32 indexOfRefraction() const;
-    void setIndexOfRefraction(LeUInt32 ior);
-
-    LeUInt16 backscatteringCoefficient() const;
-    void setBackscatteringCoefficient(LeUInt16 coef);
-
-    LeInt32 fiberStartPosition() const;
-    void setFiberStartPosition(LeInt32 startPos);
-
-    LeUInt16 scalingFactor() const;
-    void setScalingFactor(LeUInt16 factor);
-
-    LeUInt16Vector points() const;
-    void setPoints(LeUInt16Vector points);
 
 private:
     std::unique_ptr<MainBlock> m_mainBlock;

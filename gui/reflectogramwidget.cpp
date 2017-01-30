@@ -20,11 +20,15 @@ void ReflectogramWidget::setCurrentIndex(int index)
     m_mapper.setCurrentIndex(index);
 }
 
-void ReflectogramWidget::setupItemModel(ReflectogramModel *model, int section,
+void ReflectogramWidget::setupItemModel(ReflectogramModel *model, ReflectogramModelColumn columnId,
                                         QWidget *editor, Label *label, ToAllButton *button)
 {
-    label->setModel(model);
-    label->setSection(section);
+    int section = int(columnId);
+
+    if (label) {
+        label->setModel(model);
+        label->setSection(section);
+    }
 
     if (button) {
         button->setModel(model);
@@ -44,49 +48,53 @@ void ReflectogramWidget::setModel(ReflectogramModel *model)
 {
     m_mapper.setModel(model);    
 
-    setupItemModel(model, ReflectogramModel::FilePathColumn,
+    setupItemModel(model, ReflectogramModelColumn::FilePath,
                    ui->filePathEdit, ui->filePathLabel);
 
-    setupItemModel(model, ReflectogramModel::SupplierNameColumn,
+    setupItemModel(model, ReflectogramModelColumn::SupplierName,
                    ui->supplierNameEdit, ui->supplierNameLabel, ui->supplierNameAllBtn);
 
-    setupItemModel(model, ReflectogramModel::OtdrNameColumn,
+    setupItemModel(model, ReflectogramModelColumn::OtdrName,
                    ui->otdrNameEdit, ui->otdrNameLabel, ui->otdrNameAllBtn);
 
-    setupItemModel(model, ReflectogramModel::OtdrSerialNumberColumn,
+    setupItemModel(model, ReflectogramModelColumn::OtdrSerialNumber,
                    ui->otdrSerialNumberEdit, ui->otdrSerialNumberLabel, ui->otdrSerialNumberAllBtn);
 
-    setupItemModel(model, ReflectogramModel::ModuleNameColumn,
+    setupItemModel(model, ReflectogramModelColumn::ModuleName,
                    ui->moduleNameEdit, ui->moduleNameLabel, ui->moduleNameAllBtn);
 
-    setupItemModel(model, ReflectogramModel::ModuleSerialNumberColumn,
+    setupItemModel(model, ReflectogramModelColumn::ModuleSerialNumber,
                    ui->moduleSerialNumberEdit, ui->moduleSerialNumberLabel, ui->moduleSerialNumberAllBtn);
 
-    setupItemModel(model, ReflectogramModel::SoftwareVersionColumn,
+    setupItemModel(model, ReflectogramModelColumn::SoftwareVersion,
                    ui->softwareVersionEdit, ui->softwareVersionLabel, ui->softwareVersionAllBtn);
 
-    setupItemModel(model, ReflectogramModel::SupplierOtherColumn,
+    setupItemModel(model, ReflectogramModelColumn::SupplierOther,
                    ui->supplierOtherEdit, ui->supplierOtherLabel, ui->supplierOtherAllBtn);
 
-    setupItemModel(model, ReflectogramModel::DateTimeColumn,
+    setupItemModel(model, ReflectogramModelColumn::DateTime,
                    ui->dateTimeEdit, ui->dateTimeLabel, ui->dateTimeAllBtn);
 
-    setupItemModel(model, ReflectogramModel::WavelengthColumn,
+    setupItemModel(model, ReflectogramModelColumn::Wavelength,
                    ui->wavelengthEdit, ui->wavelengthLabel, ui->wavelengthAllBtn);
 
-    setupItemModel(model, ReflectogramModel::PulseWidthColumn,
+    setupItemModel(model, ReflectogramModelColumn::PulseWidth,
                    ui->pulseWidthEdit, ui->pulseWidthLabel, ui->pulseWidthAllBtn);
 
-    setupItemModel(model, ReflectogramModel::SampleSpacingColumn,
+    setupItemModel(model, ReflectogramModelColumn::SampleSpacing,
                    ui->sampleSpacingEdit, ui->sampleSpacingLabel, ui->sampleSpacingAllBtn);
 
-    setupItemModel(model, ReflectogramModel::IndexOfRefractionColumn,
+    setupItemModel(model, ReflectogramModelColumn::IndexOfRefraction,
                    ui->indexOfRefractionEdit, ui->indexOfRefractionLabel, ui->indexOfRefractionAllBtn);
 
-    setupItemModel(model, ReflectogramModel::BackscatteringCoefficientColumn,
+    setupItemModel(model, ReflectogramModelColumn::BackscatteringCoefficient,
                    ui->backscatteringCoefficientEdit, ui->backscatteringCoefficientLabel,
                    ui->backscatteringCoefficientAllBtn);
 
-    setupItemModel(model, ReflectogramModel::FiberStartPositionColumn,
+    setupItemModel(model, ReflectogramModelColumn::FiberStartPosition,
                    ui->fiberStartPositionEdit, ui->fiberStartPositionLabel, ui->fiberStartPositionAllBtn);
+
+    setupItemModel(model, ReflectogramModelColumn::SampleSpacingMeter,
+                   ui->sampleSpacingMeterEdit);
+
 }
