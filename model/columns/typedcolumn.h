@@ -5,6 +5,8 @@
 
 #include "core/reflectogram.h"
 
+namespace Model {
+
 template <class ModelValueType_, Core::Reflectogram::Field field>
 class TypedColumn : public AbstractColumn
 {
@@ -18,7 +20,7 @@ public:
     virtual QVariant data(const Core::Reflectogram &r) const
     {
         return QVariant::fromValue(
-                    toModelValue(r.value<field>()) );
+                    toModelValue(r.value<field>(), r) );
     }
 
     virtual SetResults setData(Core::Reflectogram &r, const QVariant &value) const
@@ -26,7 +28,7 @@ public:
         if (r.empty() || !value.canConvert<ModelValueType>())
             return NotAccepted;
 
-        CoreValueType newValue = toCoreValue(value.value<ModelValueType>());
+        CoreValueType newValue = toCoreValue(value.value<ModelValueType>(), r);
         if (r.value<field>() != newValue) {
             r.setValue<field>(newValue);
             return Accepted|Changed;
@@ -36,8 +38,13 @@ public:
     }
 
 protected:
-    virtual CoreValueType toCoreValue(const ModelValueType &modelValue) const = 0;
-    virtual ModelValueType toModelValue(const CoreValueType &coreValue) const = 0;
+    virtual CoreValueType toCoreValue(const ModelValueType &modelValue,
+                                      const Core::Reflectogram &r) const = 0;
+
+    virtual ModelValueType toModelValue(const CoreValueType &coreValue,
+                                        const Core::Reflectogram &r) const = 0;
 };
+
+} // namespace Model
 
 #endif // TYPEDCOLUMN_H

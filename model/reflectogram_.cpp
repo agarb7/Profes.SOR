@@ -1,4 +1,4 @@
-#include "reflectogrammodel.h"
+#include "reflectogram_.h"
 
 #include "fileinputbuffer.h"
 
@@ -8,12 +8,14 @@
 
 #include <algorithm>
 
-ReflectogramModel::ReflectogramModel(QObject *parent) :
+namespace Model {
+
+Reflectogram::Reflectogram(QObject *parent) :
     QAbstractTableModel(parent)
 {    
 }
 
-int ReflectogramModel::rowCount(const QModelIndex &parent) const
+int Reflectogram::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
@@ -21,32 +23,33 @@ int ReflectogramModel::rowCount(const QModelIndex &parent) const
     return m_data.size();
 }
 
-int ReflectogramModel::columnCount(const QModelIndex &parent) const
+int Reflectogram::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
 
-    return ReflectogramModelColumnCount;
+    return ReflectogramColumnCount;
 }
 
-Qt::ItemFlags ReflectogramModel::flags(const QModelIndex &index) const
+Qt::ItemFlags Reflectogram::flags(const QModelIndex &index) const
 {
     if (!inBound(index))
         return 0;
 
+    using ::operator|;
     return Qt::ItemIsEnabled|Qt::ItemIsEditable|Qt::ItemIsSelectable;
 }
 
-QVariant ReflectogramModel::data(const QModelIndex &index, int role) const
+QVariant Reflectogram::data(const QModelIndex &index, int role) const
 {
     if (!inBound(index) || (role != Qt::DisplayRole && role != Qt::EditRole))
         return QVariant();
 
-    auto columnId = static_cast<ReflectogramModelColumn>(index.column());
+    auto columnId = static_cast<ReflectogramColumn>(index.column());
 
     const Row &row = m_data[index.row()];
 
-    if (columnId == ReflectogramModelColumn::FilePath)
+    if (columnId == ReflectogramColumn::FilePath)
         return row.filePath;
 
     const Core::Reflectogram &r = row.reflectogram;
@@ -54,7 +57,7 @@ QVariant ReflectogramModel::data(const QModelIndex &index, int role) const
     return ColumnMap::instance().column(columnId)->data(r);
 }
 
-QVariant ReflectogramModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant Reflectogram::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation != Qt::Horizontal || role != Qt::DisplayRole)
         return QAbstractTableModel::headerData(section, orientation, role);
@@ -62,23 +65,23 @@ QVariant ReflectogramModel::headerData(int section, Qt::Orientation orientation,
     if (!columnInBound(section))
         return QVariant();
 
-    auto columnId = static_cast<ReflectogramModelColumn>(section);
-    if (columnId == ReflectogramModelColumn::FilePath)
+    auto columnId = static_cast<ReflectogramColumn>(section);
+    if (columnId == ReflectogramColumn::FilePath)
         return tr("File path");
 
     return ColumnMap::instance().column(columnId)->headerData();
 }
 
-bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool Reflectogram::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (!inBound(index) || role != Qt::EditRole)
         return false;    
 
-    auto columnId = static_cast<ReflectogramModelColumn>(index.column());
+    auto columnId = static_cast<ReflectogramColumn>(index.column());
 
     Row &row = m_data[index.row()];
 
-    if (columnId == ReflectogramModelColumn::FilePath) {
+    if (columnId == ReflectogramColumn::FilePath) {
         if (!value.canConvert<QString>())
             return false;
 
@@ -104,13 +107,13 @@ bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value,
         emit dataChanged(index, index);
 
         bool sampleSpacingMeterChanged =
-                columnId == ReflectogramModelColumn::SampleSpacing
-                || columnId == ReflectogramModelColumn::IndexOfRefraction;
+                columnId == ReflectogramColumn::SampleSpacing
+                || columnId == ReflectogramColumn::IndexOfRefraction;
 
         if (sampleSpacingMeterChanged) {
             QModelIndex ssmIdx = this->index(
                 index.row(),
-                int (ReflectogramModelColumn::SampleSpacingMeter)
+                int (ReflectogramColumn::SampleSpacingMeter)
             );
 
             emit dataChanged(ssmIdx, ssmIdx);
@@ -120,7 +123,7 @@ bool ReflectogramModel::setData(const QModelIndex &index, const QVariant &value,
     return true;
 }
 
-bool ReflectogramModel::insertRows(int row, int count, const QModelIndex &parent)
+bool Reflectogram::insertRows(int row, int count, const QModelIndex &parent)
 {
     if (parent.isValid())
         return false;
@@ -141,7 +144,7 @@ bool ReflectogramModel::insertRows(int row, int count, const QModelIndex &parent
     return true;
 }
 
-bool ReflectogramModel::removeRows(int row, int count, const QModelIndex &parent)
+bool Reflectogram::removeRows(int row, int count, const QModelIndex &parent)
 {
     if (parent.isValid())
         return false;
@@ -161,7 +164,7 @@ bool ReflectogramModel::removeRows(int row, int count, const QModelIndex &parent
     return true;
 }
 
-bool ReflectogramModel::readFile(int row)
+bool Reflectogram::readFile(int row)
 {
     if (!rowInBound(row))
         return false;
@@ -176,7 +179,7 @@ bool ReflectogramModel::readFile(int row)
     return r.reflectogram.read(buffer);
 }
 
-bool ReflectogramModel::saveFile(int row)
+bool Reflectogram::saveFile(int row)
 {
     if (!rowInBound(row))
         return false;
@@ -197,17 +200,19 @@ bool ReflectogramModel::saveFile(int row)
     return true;
 }
 
-bool ReflectogramModel::rowInBound(int row) const
+bool Reflectogram::rowInBound(int row) const
 {
     return row >= 0 && row < int(m_data.size());
 }
 
-bool ReflectogramModel::columnInBound(int col) const
+bool Reflectogram::columnInBound(int col) const
 {
-    return col >= 0 && col < int(ReflectogramModelColumnCount);
+    return col >= 0 && col < int(ReflectogramColumnCount);
 }
 
-bool ReflectogramModel::inBound(const QModelIndex &index) const
+bool Reflectogram::inBound(const QModelIndex &index) const
 {
     return rowInBound(index.row()) && columnInBound(index.column());
 }
+
+} // namespace Model

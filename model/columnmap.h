@@ -2,12 +2,14 @@
 #define COLUMNMAP_H
 
 #include "abstractcolumn.h"
-#include "reflectogrammodelcolumn.h"
+#include "reflectogramcolumn.h"
 
 #include <QCoreApplication>
 
 #include <array>
 #include <memory>
+
+namespace Model {
 
 class ColumnMap
 {    
@@ -16,18 +18,20 @@ class ColumnMap
 public:
     static const ColumnMap& instance();
 
-    AbstractColumn *column(ReflectogramModelColumn id) const;
+    AbstractColumn *column(ReflectogramColumn id) const;
 
 private:
     ColumnMap();
 
     using ColumnPtr = std::unique_ptr<AbstractColumn>;
 
-    void setup(ReflectogramModelColumn id, AbstractColumn *column);
+    void setup(ReflectogramColumn id, AbstractColumn *column);
 
-    static constexpr std::size_t m_arraySize = ReflectogramModelColumnCount;
+    static constexpr std::size_t m_arraySize = ReflectogramColumnCount;
 
     std::array<ColumnPtr, m_arraySize> m_map{};
 };
+
+} // namespace Model
 
 #endif // COLUMNMAP_H

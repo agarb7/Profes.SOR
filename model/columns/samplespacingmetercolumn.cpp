@@ -2,6 +2,8 @@
 
 #include "core/reflectogram.h"
 
+namespace Model {
+
 QVariant SampleSpacingMeterColumn::data(const Core::Reflectogram &r) const
 {
     const long double sol = 299.792458;
@@ -18,3 +20,5 @@ SampleSpacingMeterColumn::setData(Core::Reflectogram &, const QVariant &) const
 {
     return NotAccepted;
 }
+
+} // namespace Model

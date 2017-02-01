@@ -31,7 +31,6 @@ SOURCES += main.cpp\
     core/blocks/mapitemblock.cpp \
     core/blocks/mainblock.cpp \
     model/fileinputbuffer.cpp \
-    model/reflectogrammodel.cpp \
     gui/label.cpp \
     gui/toallbutton.cpp \
     gui/reflectogramwidget.cpp \
@@ -39,7 +38,12 @@ SOURCES += main.cpp\
     gui/mainwindow.cpp \
     core/blocks/keyeventsitemblock.cpp \
     model/columnmap.cpp \
-    model/columns/samplespacingmetercolumn.cpp
+    model/columns/samplespacingmetercolumn.cpp \
+    model/reflectogram_.cpp \
+    model/columns/pointscolumn.cpp \
+    gui/traceedit.cpp \
+    gui/graphicstraceitem.cpp \
+    gui/graphicsgriditem.cpp
 
 HEADERS  += \ 
     core/blocks/checksumblock.h \
@@ -66,7 +70,6 @@ HEADERS  += \
     core/fields/fixedstringfield.h \
     core/blocks/mainblock.h \
     model/fileinputbuffer.h \
-    model/reflectogrammodel.h \
     gui/label.h \
     gui/toallbutton.h \
     gui/reflectogramwidget.h \
@@ -83,10 +86,15 @@ HEADERS  += \
     model/columns/stringcolumn.h \
     model/columns/doublecolumn.h \
     model/columnmap.h \
-    model/reflectogrammodelcolumn.h \
     model/columns/datetimecolumn.h \
     model/columns/pointscolumn.h \
-    model/columns/samplespacingmetercolumn.h
+    model/columns/samplespacingmetercolumn.h \
+    model/reflectogramcolumn.h \
+    model/reflectogram_.h \
+    model/types_.h \
+    gui/traceedit.h \
+    gui/graphicstraceitem.h \
+    gui/graphicsgriditem.h
 
 FORMS    += \
     gui/reflectogramwidget.ui \

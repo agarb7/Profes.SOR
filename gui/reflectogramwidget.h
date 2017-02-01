@@ -1,14 +1,17 @@
 #ifndef REFLECTOGRAMWIDGET_H
 #define REFLECTOGRAMWIDGET_H
 
-#include "model/reflectogrammodelcolumn.h"
+#include "model/reflectogramcolumn.h"
 
 #include <QWidget>
 #include <QDataWidgetMapper>
 
-class ReflectogramModel;
 class ToAllButton;
 class Label;
+
+namespace Model {
+    class Reflectogram;
+}
 
 namespace Ui {
 class ReflectogramWidget;
@@ -22,15 +25,17 @@ public:
     explicit ReflectogramWidget(QWidget *parent = 0);
     ~ReflectogramWidget();
 
-    ReflectogramModel *model() const;
-    void setModel(ReflectogramModel *model);
+    Model::Reflectogram *model() const;
+    void setModel(Model::Reflectogram *model);
 
 public slots:
-    void setCurrentIndex(int index);    
+    void setCurrentIndex(int index);
 
 private:
-    void setupItemModel(ReflectogramModel *model, ReflectogramModelColumn columnId,
+    void setupItemModel(Model::Reflectogram *model, Model::ReflectogramColumn columnId,
                         QWidget *editor, Label *label = 0, ToAllButton *button = 0);
+
+    void setupTraceEditModel(Model::Reflectogram */*model*/);
 
     Ui::ReflectogramWidget *ui;
     QDataWidgetMapper m_mapper;

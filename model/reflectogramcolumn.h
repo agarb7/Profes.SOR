@@ -1,9 +1,11 @@
-#ifndef REFLECTOGRAMMODELCOLUMN_H
-#define REFLECTOGRAMMODELCOLUMN_H
+#ifndef REFLECTOGRAMCOLUMN_H
+#define REFLECTOGRAMCOLUMN_H
 
 #include <cstddef>
 
-enum class ReflectogramModelColumn {
+namespace Model {
+
+enum class ReflectogramColumn {
     FilePath,
     SupplierName,
     OtdrName,
@@ -23,7 +25,9 @@ enum class ReflectogramModelColumn {
     SampleSpacingMeter
 };
 
-static constexpr std::size_t ReflectogramModelColumnCount
-    = std::size_t(ReflectogramModelColumn::SampleSpacingMeter) + 1;
+static constexpr std::size_t ReflectogramColumnCount
+    = std::size_t(ReflectogramColumn::SampleSpacingMeter) + 1;
 
-#endif // REFLECTOGRAMMODELCOLUMN_H
+} // namespace Model
+
+#endif // REFLECTOGRAMCOLUMN_H

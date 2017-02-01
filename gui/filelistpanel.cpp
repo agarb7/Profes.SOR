@@ -1,7 +1,7 @@
 #include "filelistpanel.h"
 #include "ui_filelistpanel.h"
 
-#include "model/reflectogrammodel.h"
+#include "model/reflectogram_.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -12,7 +12,7 @@ FileListPanel::FileListPanel(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->listView->setModelColumn(int(ReflectogramModelColumn::FilePath));
+    ui->listView->setModelColumn(int(Model::ReflectogramColumn::FilePath));
     connect(ui->listView, &QListView::activated, [this](const QModelIndex &index) {
         emit activated(index.row());
     });
@@ -29,19 +29,19 @@ FileListPanel::~FileListPanel()
     delete ui;
 }
 
-ReflectogramModel *FileListPanel::model() const
+Model::Reflectogram *FileListPanel::model() const
 {
-    return static_cast<ReflectogramModel*>(ui->listView->model());
+    return static_cast<Model::Reflectogram*>(ui->listView->model());
 }
 
-void FileListPanel::setModel(ReflectogramModel *model)
+void FileListPanel::setModel(Model::Reflectogram *model)
 {
     ui->listView->setModel(model);
 }
 
 void FileListPanel::addFiles()
 {
-    ReflectogramModel *model = this->model();
+    Model::Reflectogram *model = this->model();
     if (!model)
         return;
 
@@ -55,7 +55,7 @@ void FileListPanel::addFiles()
     for (QString file: files) {
         int row = model->rowCount();
         model->insertRow(row);
-        QModelIndex index = model->index(row, int(ReflectogramModelColumn::FilePath));
+        QModelIndex index = model->index(row, int(Model::ReflectogramColumn::FilePath));
         model->setData(index, file);
         if (!model->readFile(row)) {
             model->removeRow(row);
@@ -72,7 +72,7 @@ void FileListPanel::addFiles()
 
 void FileListPanel::saveAll()
 {
-    ReflectogramModel *model = this->model();
+    Model::Reflectogram *model = this->model();
     if (!model)
         return;
 

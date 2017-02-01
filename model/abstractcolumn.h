@@ -9,6 +9,8 @@ namespace Core {
     class Reflectogram;
 }
 
+namespace Model {
+
 class AbstractColumn
 {
 public:
@@ -37,5 +39,7 @@ private:
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(AbstractColumn::SetResults)
+
+} // namespace Model
 
 #endif // ABSTRACTCOLUMN_H

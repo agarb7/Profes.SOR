@@ -1,5 +1,5 @@
-#ifndef REFLECTOGRAMMODEL_H
-#define REFLECTOGRAMMODEL_H
+#ifndef REFLECTOGRAM__H
+#define REFLECTOGRAM__H
 
 #include "columnmap.h"
 
@@ -10,12 +10,14 @@
 
 #include <vector>
 
-class ReflectogramModel : public QAbstractTableModel
+namespace Model {
+
+class Reflectogram : public QAbstractTableModel
 {
     Q_OBJECT
 
 public:
-    ReflectogramModel(QObject *parent = 0);
+    Reflectogram(QObject *parent = 0);
 
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -45,4 +47,6 @@ private:
     std::vector<Row> m_data;    
 };
 
-#endif // REFLECTOGRAMMODEL_H
+} // namespace Model
+
+#endif // REFLECTOGRAM__H

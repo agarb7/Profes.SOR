@@ -3,7 +3,9 @@
 
 #include <QWidget>
 
-class ReflectogramModel;
+namespace Model {
+class Reflectogram;
+}
 
 namespace Ui {
 class FileListPanel;
@@ -17,8 +19,8 @@ public:
     explicit FileListPanel(QWidget *parent = 0);
     ~FileListPanel();
 
-    ReflectogramModel *model() const;
-    void setModel(ReflectogramModel *model);
+    Model::Reflectogram *model() const;
+    void setModel(Model::Reflectogram *model);
 
 signals:
     void activated(int index);

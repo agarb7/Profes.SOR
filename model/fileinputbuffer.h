@@ -5,6 +5,8 @@
 
 #include <QFile>
 
+namespace Model {
+
 class FileInputBuffer: public Core::AbstractInputBuffer
 {
 public:
@@ -16,5 +18,7 @@ public:
 private:
     QFile &m_file;
 };
+
+} // namespace Model
 
 #endif // FILEINPUTBUFFER_H

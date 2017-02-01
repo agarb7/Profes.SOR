@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "model/reflectogrammodel.h"
+#include "model/reflectogram_.h"
 
 #include <QWidget>
 
@@ -20,7 +20,7 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    ReflectogramModel model;
+    Model::Reflectogram model;
 };
 
 #endif // MAINWINDOW_H

@@ -14,66 +14,68 @@
 #   include <iterator>
 #endif
 
+namespace Model {
+
 ColumnMap::ColumnMap()
 {
     setup(
-        ReflectogramModelColumn::SupplierName,
+        ReflectogramColumn::SupplierName,
         new StringColumn<Core::Reflectogram::SupplierName>(
             tr("Supplier name")
         )
     );
 
     setup(
-        ReflectogramModelColumn::OtdrName,
+        ReflectogramColumn::OtdrName,
         new StringColumn<Core::Reflectogram::OtdrName>(
             tr("Otdr name")
         )
     );
 
     setup(
-        ReflectogramModelColumn::OtdrSerialNumber,
+        ReflectogramColumn::OtdrSerialNumber,
         new StringColumn<Core::Reflectogram::OtdrSerialNumber>(
             tr("Otdr s/n")
         )
     );
 
     setup(
-        ReflectogramModelColumn::ModuleName,
+        ReflectogramColumn::ModuleName,
         new StringColumn<Core::Reflectogram::ModuleName>(
             tr("Module name")
         )
     );
 
     setup(
-        ReflectogramModelColumn::ModuleSerialNumber,
+        ReflectogramColumn::ModuleSerialNumber,
         new StringColumn<Core::Reflectogram::ModuleSerialNumber>(
             tr("Module s/n")
         )
     );
 
     setup(
-        ReflectogramModelColumn::SoftwareVersion,
+        ReflectogramColumn::SoftwareVersion,
         new StringColumn<Core::Reflectogram::SoftwareVersion>(
             tr("Software version")
         )
     );
 
     setup(
-        ReflectogramModelColumn::SupplierOther,
+        ReflectogramColumn::SupplierOther,
         new StringColumn<Core::Reflectogram::SupplierOther>(
             tr("Supplier other")
         )
     );
 
     setup(
-        ReflectogramModelColumn::DateTime,
+        ReflectogramColumn::DateTime,
         new DateTimeColumn(
             tr("Date/time")
         )
     );
 
     setup(
-        ReflectogramModelColumn::Wavelength,
+        ReflectogramColumn::Wavelength,
         new DoubleColumn<Core::Reflectogram::Wavelength>(
             tr("Wavelength"),
             10
@@ -81,14 +83,14 @@ ColumnMap::ColumnMap()
     );
 
     setup(
-        ReflectogramModelColumn::PulseWidth,
+        ReflectogramColumn::PulseWidth,
         new IntColumn<Core::Reflectogram::PulseWidth>(
             tr("Pulse width")
         )
     );
 
     setup(
-        ReflectogramModelColumn::SampleSpacing,
+        ReflectogramColumn::SampleSpacing,
         new DoubleColumn<Core::Reflectogram::SampleSpacing>(
             tr("Sample spacing"),
             100
@@ -96,7 +98,7 @@ ColumnMap::ColumnMap()
     );
 
     setup(
-        ReflectogramModelColumn::IndexOfRefraction,
+        ReflectogramColumn::IndexOfRefraction,
         new DoubleColumn<Core::Reflectogram::IndexOfRefraction>(
             tr("Index of refraction"),
             100000
@@ -104,7 +106,7 @@ ColumnMap::ColumnMap()
     );
 
     setup(
-        ReflectogramModelColumn::BackscatteringCoefficient,
+        ReflectogramColumn::BackscatteringCoefficient,
         new DoubleColumn<Core::Reflectogram::BackscatteringCoefficient>(
             tr("Backscattering coef."),
             -10
@@ -112,7 +114,7 @@ ColumnMap::ColumnMap()
     );
 
     setup(
-        ReflectogramModelColumn::FiberStartPosition,
+        ReflectogramColumn::FiberStartPosition,
         new DoubleColumn<Core::Reflectogram::FiberStartPosition>(
             tr("Fiber start position"),
             10
@@ -120,14 +122,14 @@ ColumnMap::ColumnMap()
     );
 
     setup(
-        ReflectogramModelColumn::Points,
+        ReflectogramColumn::Points,
         new PointsColumn(
             tr("Trace")
         )
     );
 
     setup(
-        ReflectogramModelColumn::SampleSpacingMeter,
+        ReflectogramColumn::SampleSpacingMeter,
         new SampleSpacingMeterColumn(
             tr("Sample spacing (m)")
         )
@@ -146,13 +148,14 @@ const ColumnMap &ColumnMap::instance()
     return map;
 }
 
-AbstractColumn *ColumnMap::column(ReflectogramModelColumn id) const
+AbstractColumn *ColumnMap::column(ReflectogramColumn id) const
 {
     return m_map[std::size_t(id)].get();
 }
 
-void ColumnMap::setup(ReflectogramModelColumn id, AbstractColumn *column)
+void ColumnMap::setup(ReflectogramColumn id, AbstractColumn *column)
 {
     m_map[std::size_t(id)].reset(column);
 }
 
+} // namespace Model
