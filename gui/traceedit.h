@@ -1,14 +1,12 @@
 #ifndef TRACEEDIT_H
 #define TRACEEDIT_H
 
-#include "graphicstraceitem.h"
-#include "graphicsgriditem.h"
-
 #include "model/types_.h"
 
-#include <QGraphicsView>
+#include <QChartView>
+#include <QLineSeries>
 
-class TraceEdit : public QGraphicsView
+class TraceEdit : public QtCharts::QChartView
 {
     Q_OBJECT
 
@@ -32,18 +30,22 @@ public:
     double sampleSpacing() const;
     void setSampleSpacing(double spacing);    
 
+public slots:
+    void horizontalScrollTo(double part);
+    void setHorizontalZoom(double factor);
+
 signals:
     void pointsChanged(const Model::PointVector &points);
     void sampleSpacingChanged(double spacing);
 
-protected:
-    virtual void resizeEvent(QResizeEvent *event);
+private:    
+    void updateSampleSeries();
 
-private:
-    void updateScene();
+    Model::PointVector m_points;
+    double m_sampleSpacing=0;
+    QtCharts::QLineSeries m_series;
 
-    GraphicsGridItem m_gridItem;
-    GraphicsTraceItem m_traceItem;
+    double m_baseLength = 1000;
 };
 
 #endif // TRACEEDIT_H

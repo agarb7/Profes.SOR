@@ -8,6 +8,28 @@ ReflectogramWidget::ReflectogramWidget(QWidget *parent) :
     ui(new Ui::ReflectogramWidget)
 {
     ui->setupUi(this);
+
+    connect(ui->traceHorZoom, &QAbstractSlider::valueChanged, [this](int value) {
+        double factor = 1;
+
+        if (value != 0) {
+            factor = value>0
+                    ? value+1
+                    : 1./(-value+1);
+        }
+
+        ui->traceEdit->setHorizontalZoom(factor);
+    });
+
+    connect(ui->traceHorScroll, &QAbstractSlider::valueChanged, [this](int value) {
+        double min = ui->traceHorScroll->minimum();
+        double max = ui->traceHorScroll->maximum();
+        double cur = value;
+
+        double part = (cur-min)/(max-min);
+
+        ui->traceEdit->horizontalScrollTo(part);
+    });
 }
 
 ReflectogramWidget::~ReflectogramWidget()

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui charts
 
 CONFIG(release, debug|release): DEFINES += NDEBUG
 
@@ -41,9 +41,7 @@ SOURCES += main.cpp\
     model/columns/samplespacingmetercolumn.cpp \
     model/reflectogram_.cpp \
     model/columns/pointscolumn.cpp \
-    gui/traceedit.cpp \
-    gui/graphicstraceitem.cpp \
-    gui/graphicsgriditem.cpp
+    gui/traceedit.cpp
 
 HEADERS  += \ 
     core/blocks/checksumblock.h \
@@ -92,9 +90,7 @@ HEADERS  += \
     model/reflectogramcolumn.h \
     model/reflectogram_.h \
     model/types_.h \
-    gui/traceedit.h \
-    gui/graphicstraceitem.h \
-    gui/graphicsgriditem.h
+    gui/traceedit.h
 
 FORMS    += \
     gui/reflectogramwidget.ui \
