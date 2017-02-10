@@ -395,9 +395,6 @@
        <property name="spacing">
         <number>0</number>
        </property>
-       <item row="1" column="1">
-        <widget class="TraceEdit" name="traceEdit"/>
-       </item>
        <item row="1" column="0">
         <widget class="QSlider" name="tracePerDbSlider">
          <property name="enabled">
@@ -416,10 +413,10 @@
          <item>
           <widget class="QSlider" name="traceHorZoom">
            <property name="minimum">
-            <number>-10</number>
+            <number>-20</number>
            </property>
            <property name="maximum">
-            <number>10</number>
+            <number>20</number>
            </property>
            <property name="pageStep">
             <number>1</number>
@@ -447,12 +444,101 @@
          </item>
         </layout>
        </item>
+       <item row="1" column="1">
+        <widget class="TraceEdit" name="traceEdit"/>
+       </item>
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QCheckBox" name="traceAllCheck">
+      <layout class="QFormLayout" name="formLayout_3">
+       <item row="1" column="0">
+        <widget class="QLabel" name="traceSelFromLabel">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>From</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDoubleSpinBox" name="traceSelFromEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="suffix">
+          <string> m</string>
+         </property>
+         <property name="maximum">
+          <double>999999999.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="traceSelToLabel">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>To</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QDoubleSpinBox" name="traceSelToEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="suffix">
+          <string> m</string>
+         </property>
+         <property name="maximum">
+          <double>999999999.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QPushButton" name="traceDuplicateBtn">
+         <property name="text">
+          <string>Duplicate</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QPushButton" name="traceDeleteBtn">
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="traceScewLabel">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Scew</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QDoubleSpinBox" name="traceScewEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="suffix">
+          <string> dB</string>
+         </property>
+         <property name="minimum">
+          <double>-999.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="traceAllLabel">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -461,72 +547,12 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="traceDuplicateBtn">
+       <item row="0" column="1">
+        <widget class="QCheckBox" name="traceAllCheck_2">
          <property name="enabled">
           <bool>false</bool>
          </property>
-         <property name="text">
-          <string>Duplicate</string>
-         </property>
         </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="traceDeleteBtn">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Delete</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_18">
-         <item>
-          <widget class="QLabel" name="traceScewLabel">
-           <property name="text">
-            <string>Scew</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QDoubleSpinBox" name="traceScewEdit">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="suffix">
-            <string> dB</string>
-           </property>
-           <property name="minimum">
-            <double>-999.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>999.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </item>
@@ -549,8 +575,45 @@
    <class>TraceEdit</class>
    <extends>QGraphicsView</extends>
    <header>gui/traceedit.h</header>
+   <slots>
+    <slot>duplicateSelected()</slot>
+    <slot>deleteSelected()</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>traceDeleteBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>traceEdit</receiver>
+   <slot>deleteSelected()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>756</x>
+     <y>318</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>398</x>
+     <y>374</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>traceDuplicateBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>traceEdit</receiver>
+   <slot>duplicateSelected()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>725</x>
+     <y>284</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>582</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

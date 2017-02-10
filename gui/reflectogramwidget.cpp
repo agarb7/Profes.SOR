@@ -51,7 +51,7 @@ void ReflectogramWidget::setModel(Model::Reflectogram *model)
 {
     using Model::ReflectogramColumn;
 
-    m_mapper.setModel(model);    
+    m_mapper.setModel(model);
 
     setupItemModel(model, ReflectogramColumn::FilePath,
                    ui->filePathEdit, ui->filePathLabel);
@@ -121,17 +121,17 @@ void ReflectogramWidget::setupItemModel(Model::Reflectogram *model, Model::Refle
         button->setSection(section);
     }
 
-    m_mapper.addMapping(editor, section);
+    m_mapper.addMapping(section, editor);
 }
 
 void ReflectogramWidget::setupTraceEditModel(Model::Reflectogram */*model*/)
 {
-    m_mapper.addMapping(ui->traceEdit,
-                        int(Model::ReflectogramColumn::Points));
+    m_mapper.addMapping(int(Model::ReflectogramColumn::Points),
+                        ui->traceEdit);
 
-    ui->traceEdit->setSampleSpacing(5.10);
+//    ui->traceEdit->setSampleSpacing(5.10);
 
-//    m_mapper.addMapping(ui->traceEdit,
-//                        int(Model::ReflectogramColumn::SampleSpacingMeter),
-//                        "sampleSpacing");
+    m_mapper.addMapping(int(Model::ReflectogramColumn::SampleSpacingMeter),
+                        ui->traceEdit,
+                        "sampleSpacing");
 }

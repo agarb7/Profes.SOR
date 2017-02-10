@@ -41,7 +41,12 @@ SOURCES += main.cpp\
     model/columns/samplespacingmetercolumn.cpp \
     model/reflectogram_.cpp \
     model/columns/pointscolumn.cpp \
-    gui/traceedit.cpp
+    gui/traceedit.cpp \
+    gui/chart.cpp \
+    gui/chartselection.cpp \
+    gui/datawidgetmapper/datawidgetmapper.cpp \
+    gui/datawidgetmapper/datawidgetmapping.cpp \
+    gui/datawidgetmapper/sectionobject.cpp
 
 HEADERS  += \ 
     core/blocks/checksumblock.h \
@@ -90,7 +95,12 @@ HEADERS  += \
     model/reflectogramcolumn.h \
     model/reflectogram_.h \
     model/types_.h \
-    gui/traceedit.h
+    gui/traceedit.h \
+    gui/chart.h \
+    gui/chartselection.h \
+    gui/datawidgetmapper/datawidgetmapper.h \
+    gui/datawidgetmapper/datawidgetmapping.h \
+    gui/datawidgetmapper/sectionobject.h
 
 FORMS    += \
     gui/reflectogramwidget.ui \

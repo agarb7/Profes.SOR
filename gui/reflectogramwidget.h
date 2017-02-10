@@ -1,10 +1,11 @@
 #ifndef REFLECTOGRAMWIDGET_H
 #define REFLECTOGRAMWIDGET_H
 
+#include "datawidgetmapper/datawidgetmapper.h"
+
 #include "model/reflectogramcolumn.h"
 
 #include <QWidget>
-#include <QDataWidgetMapper>
 
 class ToAllButton;
 class Label;
@@ -38,7 +39,7 @@ private:
     void setupTraceEditModel(Model::Reflectogram */*model*/);
 
     Ui::ReflectogramWidget *ui;
-    QDataWidgetMapper m_mapper;
+    DataWidgetMapper m_mapper;
 };
 
 #endif // REFLECTOGRAMWIDGET_H

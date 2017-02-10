@@ -6,6 +6,8 @@
 #include <QChartView>
 #include <QLineSeries>
 
+class Chart;
+
 class TraceEdit : public QtCharts::QChartView
 {
     Q_OBJECT
@@ -28,18 +30,26 @@ public:
     void setPoints(const Model::PointVector &points);
 
     double sampleSpacing() const;
-    void setSampleSpacing(double spacing);    
+    void setSampleSpacing(double spacing);
+
+    Chart *chart() const;
 
 public slots:
     void horizontalScrollTo(double part);
     void setHorizontalZoom(double factor);
+
+    void deleteSelected();
+    void duplicateSelected();
 
 signals:
     void pointsChanged(const Model::PointVector &points);
     void sampleSpacingChanged(double spacing);
 
 private:    
-    void updateSampleSeries();
+    void updateSeries();
+    double indexToValue(int index) const;
+    int selectionMinIndex() const;
+    int selectionMaxIndex() const;
 
     Model::PointVector m_points;
     double m_sampleSpacing=0;
