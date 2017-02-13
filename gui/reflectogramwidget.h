@@ -1,9 +1,9 @@
 #ifndef REFLECTOGRAMWIDGET_H
 #define REFLECTOGRAMWIDGET_H
 
-#include "datawidgetmapper/datawidgetmapper.h"
-
 #include "model/reflectogramcolumn.h"
+
+#include "utils/datapropertymapper.h"
 
 #include <QWidget>
 
@@ -39,7 +39,7 @@ private:
     void setupTraceEditModel(Model::Reflectogram */*model*/);
 
     Ui::ReflectogramWidget *ui;
-    DataWidgetMapper m_mapper;
+    Utils::DataPropertyMapper m_mapper;
 };
 
 #endif // REFLECTOGRAMWIDGET_H

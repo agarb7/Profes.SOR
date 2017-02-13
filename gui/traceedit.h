@@ -7,6 +7,7 @@
 #include <QLineSeries>
 
 class Chart;
+class ChartSelection;
 
 class TraceEdit : public QtCharts::QChartView
 {
@@ -33,6 +34,7 @@ public:
     void setSampleSpacing(double spacing);
 
     Chart *chart() const;
+    ChartSelection *chartSelection() const;
 
 public slots:
     void horizontalScrollTo(double part);

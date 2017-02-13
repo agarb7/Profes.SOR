@@ -1,6 +1,7 @@
 #include "traceedit.h"
 
 #include "chart.h"
+#include "chartselection.h"
 
 #include <QGraphicsScene>
 #include <QPointF>
@@ -60,6 +61,11 @@ void TraceEdit::setSampleSpacing(double spacing)
 Chart *TraceEdit::chart() const
 {
     return static_cast<Chart*>(QChartView::chart());
+}
+
+ChartSelection *TraceEdit::chartSelection() const
+{
+    return chart()->selection();
 }
 
 void TraceEdit::horizontalScrollTo(double part)
@@ -174,12 +180,12 @@ double TraceEdit::indexToValue(int index) const
 
 int TraceEdit::selectionMinIndex() const
 {
-    double value = chart()->selectionMin();
+    double value = chart()->selection()->min();
     return std::lround(std::ceil(value / m_sampleSpacing));
 }
 
 int TraceEdit::selectionMaxIndex() const
 {
-    double value = chart()->selectionMax();
+    double value = chart()->selection()->max();
     return std::lround(std::floor(value / m_sampleSpacing));
 }

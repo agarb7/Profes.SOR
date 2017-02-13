@@ -1,5 +1,7 @@
 #include "chart.h"
 
+#include "chartselection.h"
+
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsLayout>
 #include <QValueAxis>
@@ -26,7 +28,7 @@ Chart::Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags) :
 
     m_selection = new ChartSelection(this);
 
-//    m_selection->setZValue(2);
+    m_selection->setZValue(2);
 }
 
 void Chart::addSeries(QAbstractSeries *series)
@@ -37,19 +39,14 @@ void Chart::addSeries(QAbstractSeries *series)
     series->attachAxis(axisY());
 }
 
-double Chart::selectionMin() const
+ChartSelection *Chart::selection() const
 {
-    return m_selection->min();
-}
-
-double Chart::selectionMax() const
-{
-    return m_selection->max();
+    return m_selection;
 }
 
 void Chart::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    m_selection->setStart(mapToValue(event->pos()).x());
+    m_selection->setPosition(mapToValue(event->pos()).x());
 }
 
 void Chart::mouseMoveEvent(QGraphicsSceneMouseEvent *event)

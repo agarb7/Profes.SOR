@@ -44,9 +44,10 @@ SOURCES += main.cpp\
     gui/traceedit.cpp \
     gui/chart.cpp \
     gui/chartselection.cpp \
-    gui/datawidgetmapper/datawidgetmapper.cpp \
-    gui/datawidgetmapper/datawidgetmapping.cpp \
-    gui/datawidgetmapper/sectionobject.cpp
+    utils/objectpropertymapping.cpp \
+    utils/datapropertymapper.cpp \
+    utils/detail/modelsectionobject.cpp \
+    utils/detail/common.cpp
 
 HEADERS  += \ 
     core/blocks/checksumblock.h \
@@ -98,9 +99,10 @@ HEADERS  += \
     gui/traceedit.h \
     gui/chart.h \
     gui/chartselection.h \
-    gui/datawidgetmapper/datawidgetmapper.h \
-    gui/datawidgetmapper/datawidgetmapping.h \
-    gui/datawidgetmapper/sectionobject.h
+    utils/objectpropertymapping.h \
+    utils/datapropertymapper.h \
+    utils/detail/modelsectionobject.h \
+    utils/detail/common.h
 
 FORMS    += \
     gui/reflectogramwidget.ui \

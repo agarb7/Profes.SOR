@@ -1,9 +1,9 @@
 #ifndef CHART_H
 #define CHART_H
 
-#include "chartselection.h"
-
 #include <QChart>
+
+class ChartSelection;
 
 class Chart: public QtCharts::QChart
 {
@@ -15,12 +15,11 @@ public:
 
     void addSeries(QtCharts::QAbstractSeries *series);
 
-    double selectionMin() const;
-    double selectionMax() const;
+    ChartSelection *selection() const;
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);    
 
 private:
     ChartSelection *m_selection = 0;

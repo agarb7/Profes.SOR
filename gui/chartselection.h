@@ -10,6 +10,9 @@ class ChartSelection: public QGraphicsObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(double start READ start WRITE setStart NOTIFY startChanged)
+    Q_PROPERTY(double end READ end WRITE setEnd NOTIFY endChanged)
+
 public:
     explicit ChartSelection(QtCharts::QChart *parent);
 
@@ -19,14 +22,21 @@ public:
                const QStyleOptionGraphicsItem */*option*/,
                QWidget */*widget*/);
 
-    double min() const;
-    void setStart(double min);
+    double start() const;
+    double end() const;
 
+    double min() const;
     double max() const;
+
+public slots:
+    void setStart(double min);
     void setEnd(double max);
 
-signals:
+    void setPosition(double pos);
 
+signals:
+    void startChanged(double start);
+    void endChanged(double end);
 
 private slots:
     void updateGeometry();

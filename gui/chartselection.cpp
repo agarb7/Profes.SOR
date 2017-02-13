@@ -13,7 +13,13 @@ using namespace QtCharts;
 ChartSelection::ChartSelection(QChart *parent) :
     QGraphicsObject(parent)
 {
+    connect(parent, &QChart::plotAreaChanged,
+            this, &ChartSelection::updateGeometry);
+
     connect(axisX(), &QValueAxis::rangeChanged,
+            this, &ChartSelection::updateGeometry);
+
+    connect(axisY(), &QValueAxis::rangeChanged,
             this, &ChartSelection::updateGeometry);
 }
 
@@ -34,15 +40,19 @@ void ChartSelection::paint(QPainter *painter,
     painter->drawRect(m_boundingRect);
 }
 
+double ChartSelection::start() const
+{
+    return m_start;
+}
+
+double ChartSelection::end() const
+{
+    return m_end;
+}
+
 double ChartSelection::min() const
 {
     return std::min(m_start, m_end);
-}
-
-void ChartSelection::setStart(double start)
-{
-    m_start = m_end = start;
-    updateGeometry();
 }
 
 double ChartSelection::max() const
@@ -50,10 +60,43 @@ double ChartSelection::max() const
     return std::max(m_start, m_end);
 }
 
+void ChartSelection::setStart(double start)
+{
+    if (m_start != start) {
+        m_start = start;
+        updateGeometry();
+        emit startChanged(m_start);
+    }
+}
+
 void ChartSelection::setEnd(double end)
 {
-    m_end = end;
-    updateGeometry();
+    if (m_end != end) {
+        m_end = end;
+        updateGeometry();
+        emit endChanged(m_end);
+    }
+}
+
+void ChartSelection::setPosition(double pos)
+{
+    bool startMod = false;
+    bool endMod = false;
+
+    if ((startMod = m_start != pos))
+        m_start = pos;
+
+    if ((endMod = m_end != pos))
+        m_end = pos;
+
+    if (startMod || endMod)
+        updateGeometry();
+
+    if (startMod)
+        emit startChanged(m_start);
+
+    if (endMod)
+        emit endChanged(m_end);
 }
 
 QValueAxis *ChartSelection::axisX() const

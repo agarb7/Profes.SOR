@@ -452,20 +452,14 @@
      <item>
       <layout class="QFormLayout" name="formLayout_3">
        <item row="1" column="0">
-        <widget class="QLabel" name="traceSelFromLabel">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+        <widget class="QLabel" name="traceSelStartLabel">
          <property name="text">
-          <string>From</string>
+          <string>Start</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QDoubleSpinBox" name="traceSelFromEdit">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+        <widget class="QDoubleSpinBox" name="traceSelStartEdit">
          <property name="suffix">
           <string> m</string>
          </property>
@@ -475,20 +469,14 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="traceSelToLabel">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+        <widget class="QLabel" name="traceSelEndLabel">
          <property name="text">
-          <string>To</string>
+          <string>End</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QDoubleSpinBox" name="traceSelToEdit">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+        <widget class="QDoubleSpinBox" name="traceSelEndEdit">
          <property name="suffix">
           <string> m</string>
          </property>

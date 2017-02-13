@@ -1,13 +1,28 @@
 #include "reflectogramwidget.h"
 #include "ui_reflectogramwidget.h"
 
+#include "chart.h"
+#include "chartselection.h"
+
+#include "utils/objectpropertymapping.h"
+
 #include "model/reflectogram_.h"
 
 ReflectogramWidget::ReflectogramWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ReflectogramWidget)
 {
+    using Mapping = Utils::ObjectPropertyMapping;
+
     ui->setupUi(this);
+
+    ChartSelection *traceSelection = ui->traceEdit->chart()->selection();
+
+    new Mapping(traceSelection, "start",
+                ui->traceSelStartEdit, "value");
+
+    new Mapping(traceSelection, "end",
+                ui->traceSelEndEdit, "value");
 
     connect(ui->traceHorZoom, &QAbstractSlider::valueChanged, [this](int value) {
         double factor = 1;
@@ -129,9 +144,8 @@ void ReflectogramWidget::setupTraceEditModel(Model::Reflectogram */*model*/)
     m_mapper.addMapping(int(Model::ReflectogramColumn::Points),
                         ui->traceEdit);
 
-//    ui->traceEdit->setSampleSpacing(5.10);
-
     m_mapper.addMapping(int(Model::ReflectogramColumn::SampleSpacingMeter),
                         ui->traceEdit,
-                        "sampleSpacing");
+                        "sampleSpacing",
+                        Utils::DataPropertyMapper::ToWidgetMapping);
 }
