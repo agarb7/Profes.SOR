@@ -391,75 +391,58 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_17">
      <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item row="1" column="0">
-        <widget class="QSlider" name="tracePerDbSlider">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="sliderPosition">
-          <number>50</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_19" stretch="1,2">
-         <item>
-          <widget class="QSlider" name="traceHorZoom">
-           <property name="minimum">
-            <number>-20</number>
-           </property>
-           <property name="maximum">
-            <number>20</number>
-           </property>
-           <property name="pageStep">
-            <number>1</number>
-           </property>
-           <property name="value">
-            <number>0</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="tickPosition">
-            <enum>QSlider::NoTicks</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QScrollBar" name="traceHorScroll">
-           <property name="maximum">
-            <number>100</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="1" column="1">
-        <widget class="TraceEdit" name="traceEdit"/>
-       </item>
-      </layout>
+      <widget class="TraceView" name="traceView" native="true"/>
      </item>
      <item>
       <layout class="QFormLayout" name="formLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="traceAllLabel">
+         <property name="text">
+          <string>All</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QCheckBox" name="traceAllCheck"/>
+       </item>
        <item row="1" column="0">
+        <widget class="QLabel" name="traceHorizontalResolutionLabel">
+         <property name="text">
+          <string>H-Res</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDoubleSpinBox" name="traceHorizontalResolutionEdit">
+         <property name="accelerated">
+          <bool>true</bool>
+         </property>
+         <property name="suffix">
+          <string> p/m</string>
+         </property>
+         <property name="minimum">
+          <double>0.010000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999999999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.050000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
         <widget class="QLabel" name="traceSelStartLabel">
          <property name="text">
           <string>Start</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="3" column="1">
         <widget class="QDoubleSpinBox" name="traceSelStartEdit">
+         <property name="accelerated">
+          <bool>true</bool>
+         </property>
          <property name="suffix">
           <string> m</string>
          </property>
@@ -468,15 +451,18 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="traceSelEndLabel">
          <property name="text">
           <string>End</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="4" column="1">
         <widget class="QDoubleSpinBox" name="traceSelEndEdit">
+         <property name="accelerated">
+          <bool>true</bool>
+         </property>
          <property name="suffix">
           <string> m</string>
          </property>
@@ -485,21 +471,24 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0" colspan="2">
+       <item row="5" column="0" colspan="2">
         <widget class="QPushButton" name="traceDuplicateBtn">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="text">
           <string>Duplicate</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="0" colspan="2">
+       <item row="6" column="0" colspan="2">
         <widget class="QPushButton" name="traceDeleteBtn">
          <property name="text">
           <string>Delete</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="traceScewLabel">
          <property name="enabled">
           <bool>false</bool>
@@ -509,7 +498,7 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="7" column="1">
         <widget class="QDoubleSpinBox" name="traceScewEdit">
          <property name="enabled">
           <bool>false</bool>
@@ -525,20 +514,29 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="traceAllLabel">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+       <item row="2" column="0">
+        <widget class="QLabel" name="traceVerticalResolutionLabel">
          <property name="text">
-          <string>All</string>
+          <string>V-Res</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QCheckBox" name="traceAllCheck_2">
-         <property name="enabled">
-          <bool>false</bool>
+       <item row="2" column="1">
+        <widget class="QDoubleSpinBox" name="traceVerticalResolutionEdit">
+         <property name="accelerated">
+          <bool>true</bool>
+         </property>
+         <property name="suffix">
+          <string> p/dB</string>
+         </property>
+         <property name="minimum">
+          <double>0.010000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999999999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.050000000000000</double>
          </property>
         </widget>
        </item>
@@ -560,9 +558,10 @@
    <header>gui/label.h</header>
   </customwidget>
   <customwidget>
-   <class>TraceEdit</class>
-   <extends>QGraphicsView</extends>
-   <header>gui/traceedit.h</header>
+   <class>TraceView</class>
+   <extends>QWidget</extends>
+   <header>gui/traceview.h</header>
+   <container>1</container>
    <slots>
     <slot>duplicateSelected()</slot>
     <slot>deleteSelected()</slot>
@@ -572,34 +571,34 @@
  <resources/>
  <connections>
   <connection>
-   <sender>traceDeleteBtn</sender>
+   <sender>traceDuplicateBtn</sender>
    <signal>clicked()</signal>
-   <receiver>traceEdit</receiver>
-   <slot>deleteSelected()</slot>
+   <receiver>traceView</receiver>
+   <slot>duplicateSelected()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>756</x>
-     <y>318</y>
+     <x>539</x>
+     <y>531</y>
     </hint>
     <hint type="destinationlabel">
-     <x>398</x>
-     <y>374</y>
+     <x>312</x>
+     <y>532</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>traceDuplicateBtn</sender>
+   <sender>traceDeleteBtn</sender>
    <signal>clicked()</signal>
-   <receiver>traceEdit</receiver>
-   <slot>duplicateSelected()</slot>
+   <receiver>traceView</receiver>
+   <slot>deleteSelected()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>725</x>
-     <y>284</y>
+     <x>575</x>
+     <y>554</y>
     </hint>
     <hint type="destinationlabel">
-     <x>582</x>
-     <y>302</y>
+     <x>327</x>
+     <y>600</y>
     </hint>
    </hints>
   </connection>

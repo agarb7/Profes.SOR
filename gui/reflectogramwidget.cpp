@@ -1,50 +1,30 @@
 #include "reflectogramwidget.h"
 #include "ui_reflectogramwidget.h"
 
-#include "chart.h"
-#include "chartselection.h"
-
-#include "utils/objectpropertymapping.h"
+#include "traceselectionitem.h"
 
 #include "model/reflectogram_.h"
+
+#include "utils/objectpropertymapping.h"
 
 ReflectogramWidget::ReflectogramWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ReflectogramWidget)
 {
-    using Mapping = Utils::ObjectPropertyMapping;
-
     ui->setupUi(this);
 
-    ChartSelection *traceSelection = ui->traceEdit->chart()->selection();
+    TraceSelectionItem *selection = ui->traceView->traceSelection();
 
-    new Mapping(traceSelection, "start",
-                ui->traceSelStartEdit, "value");
+    setupEditorMapping(selection, "start", ui->traceSelStartEdit);
+    setupEditorMapping(selection, "end", ui->traceSelEndEdit);
 
-    new Mapping(traceSelection, "end",
-                ui->traceSelEndEdit, "value");
+    setupEditorMapping(ui->traceView, "horizontalResolution",
+                       ui->traceHorizontalResolutionEdit);
 
-    connect(ui->traceHorZoom, &QAbstractSlider::valueChanged, [this](int value) {
-        double factor = 1;
+    setupEditorMapping(ui->traceView, "verticalResolution",
+                       ui->traceVerticalResolutionEdit);
 
-        if (value != 0) {
-            factor = value>0
-                    ? value+1
-                    : 1./(-value+1);
-        }
-
-        ui->traceEdit->setHorizontalZoom(factor);
-    });
-
-    connect(ui->traceHorScroll, &QAbstractSlider::valueChanged, [this](int value) {
-        double min = ui->traceHorScroll->minimum();
-        double max = ui->traceHorScroll->maximum();
-        double cur = value;
-
-        double part = (cur-min)/(max-min);
-
-        ui->traceEdit->horizontalScrollTo(part);
-    });
+    setupEditorMapping(ui->traceView, "useAll", ui->traceAllCheck);
 }
 
 ReflectogramWidget::~ReflectogramWidget()
@@ -54,7 +34,20 @@ ReflectogramWidget::~ReflectogramWidget()
 
 void ReflectogramWidget::setCurrentIndex(int index)
 {    
-    m_mapper.setCurrentIndex(index);
+    m_mapper.setCurrentIndex(index);    
+    ui->traceView->setCurrentRow(index);
+}
+
+void ReflectogramWidget::setupEditorMapping(QObject *object, const QByteArray &objectProp,
+                                            QWidget *editor)
+{
+    using Mapping = Utils::ObjectPropertyMapping;
+
+    auto mapping = new Mapping(object, objectProp,
+                               editor, editor->metaObject()->userProperty().name(),
+                               Mapping::BothMapping, this);
+
+    mapping->writeSecondProperty();
 }
 
 Model::Reflectogram *ReflectogramWidget::model() const
@@ -67,6 +60,7 @@ void ReflectogramWidget::setModel(Model::Reflectogram *model)
     using Model::ReflectogramColumn;
 
     m_mapper.setModel(model);
+    ui->traceView->setModel(model);
 
     setupItemModel(model, ReflectogramColumn::FilePath,
                    ui->filePathEdit, ui->filePathLabel);
@@ -115,9 +109,7 @@ void ReflectogramWidget::setModel(Model::Reflectogram *model)
                    ui->fiberStartPositionEdit, ui->fiberStartPositionLabel, ui->fiberStartPositionAllBtn);
 
     setupItemModel(model, ReflectogramColumn::SampleSpacingMeter,
-                   ui->sampleSpacingMeterEdit);
-
-    setupTraceEditModel(model);
+                   ui->sampleSpacingMeterEdit);    
 }
 
 void ReflectogramWidget::setupItemModel(Model::Reflectogram *model, Model::ReflectogramColumn columnId,
@@ -137,15 +129,4 @@ void ReflectogramWidget::setupItemModel(Model::Reflectogram *model, Model::Refle
     }
 
     m_mapper.addMapping(section, editor);
-}
-
-void ReflectogramWidget::setupTraceEditModel(Model::Reflectogram */*model*/)
-{
-    m_mapper.addMapping(int(Model::ReflectogramColumn::Points),
-                        ui->traceEdit);
-
-    m_mapper.addMapping(int(Model::ReflectogramColumn::SampleSpacingMeter),
-                        ui->traceEdit,
-                        "sampleSpacing",
-                        Utils::DataPropertyMapper::ToWidgetMapping);
 }

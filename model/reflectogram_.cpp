@@ -128,7 +128,7 @@ bool Reflectogram::insertRows(int row, int count, const QModelIndex &parent)
     if (parent.isValid())
         return false;
 
-    if (row<0 || row > int(m_data.size()))
+    if (row > int(m_data.size()) || row<0)
         return false;
 
     beginInsertRows(parent, row, row+count-1);
@@ -176,7 +176,13 @@ bool Reflectogram::readFile(int row)
         return false;
 
     FileInputBuffer buffer(file);
-    return r.reflectogram.read(buffer);
+    bool result = r.reflectogram.read(buffer);
+
+    //todo: implement signals from core, and reemit them
+    //      remove explicit emiting after implement
+    emit dataChanged(index(row, 0), index(row, ReflectogramColumnCount-1));
+
+    return result;
 }
 
 bool Reflectogram::saveFile(int row)

@@ -1,12 +1,12 @@
-#ifndef CHARTSELECTION_H
-#define CHARTSELECTION_H
+#ifndef TRACESELECTIONITEM_H
+#define TRACESELECTIONITEM_H
 
 #include <QChart>
 #include <QValueAxis>
 
 #include <QGraphicsObject>
 
-class ChartSelection: public QGraphicsObject
+class TraceSelectionItem: public QGraphicsObject
 {
     Q_OBJECT
 
@@ -14,7 +14,7 @@ class ChartSelection: public QGraphicsObject
     Q_PROPERTY(double end READ end WRITE setEnd NOTIFY endChanged)
 
 public:
-    explicit ChartSelection(QtCharts::QChart *parent);
+    explicit TraceSelectionItem(QtCharts::QChart *parent);
 
     QRectF boundingRect() const;
 
@@ -53,4 +53,4 @@ private:
     QRectF m_boundingRect;
 };
 
-#endif // CHARTSELECTION_H
+#endif // TRACESELECTIONITEM_H

@@ -33,10 +33,11 @@ public slots:
     void setCurrentIndex(int index);
 
 private:
+    void setupEditorMapping(QObject *object, const QByteArray &objectProp,
+                            QWidget *editor);
+
     void setupItemModel(Model::Reflectogram *model, Model::ReflectogramColumn columnId,
                         QWidget *editor, Label *label = 0, ToAllButton *button = 0);
-
-    void setupTraceEditModel(Model::Reflectogram */*model*/);
 
     Ui::ReflectogramWidget *ui;
     Utils::DataPropertyMapper m_mapper;

@@ -1,4 +1,4 @@
-#include "chartselection.h"
+#include "traceselectionitem.h"
 
 #include <QPainter>
 
@@ -10,25 +10,25 @@ using namespace QtCharts;
  * \brief ChartSelection::ChartSelection
  * \param parent must be not null and have x-axis
  */
-ChartSelection::ChartSelection(QChart *parent) :
+TraceSelectionItem::TraceSelectionItem(QChart *parent) :
     QGraphicsObject(parent)
 {
     connect(parent, &QChart::plotAreaChanged,
-            this, &ChartSelection::updateGeometry);
+            this, &TraceSelectionItem::updateGeometry);
 
     connect(axisX(), &QValueAxis::rangeChanged,
-            this, &ChartSelection::updateGeometry);
+            this, &TraceSelectionItem::updateGeometry);
 
     connect(axisY(), &QValueAxis::rangeChanged,
-            this, &ChartSelection::updateGeometry);
+            this, &TraceSelectionItem::updateGeometry);
 }
 
-QRectF ChartSelection::boundingRect() const
+QRectF TraceSelectionItem::boundingRect() const
 {
     return m_boundingRect;
 }
 
-void ChartSelection::paint(QPainter *painter,
+void TraceSelectionItem::paint(QPainter *painter,
                            const QStyleOptionGraphicsItem */*option*/,
                            QWidget */*widget*/)
 {
@@ -40,27 +40,27 @@ void ChartSelection::paint(QPainter *painter,
     painter->drawRect(m_boundingRect);
 }
 
-double ChartSelection::start() const
+double TraceSelectionItem::start() const
 {
     return m_start;
 }
 
-double ChartSelection::end() const
+double TraceSelectionItem::end() const
 {
     return m_end;
 }
 
-double ChartSelection::min() const
+double TraceSelectionItem::min() const
 {
     return std::min(m_start, m_end);
 }
 
-double ChartSelection::max() const
+double TraceSelectionItem::max() const
 {
     return std::max(m_start, m_end);
 }
 
-void ChartSelection::setStart(double start)
+void TraceSelectionItem::setStart(double start)
 {
     if (m_start != start) {
         m_start = start;
@@ -69,7 +69,7 @@ void ChartSelection::setStart(double start)
     }
 }
 
-void ChartSelection::setEnd(double end)
+void TraceSelectionItem::setEnd(double end)
 {
     if (m_end != end) {
         m_end = end;
@@ -78,7 +78,7 @@ void ChartSelection::setEnd(double end)
     }
 }
 
-void ChartSelection::setPosition(double pos)
+void TraceSelectionItem::setPosition(double pos)
 {
     bool startMod = false;
     bool endMod = false;
@@ -99,22 +99,22 @@ void ChartSelection::setPosition(double pos)
         emit endChanged(m_end);
 }
 
-QValueAxis *ChartSelection::axisX() const
+QValueAxis *TraceSelectionItem::axisX() const
 {
     return static_cast<QValueAxis*>(chart()->axisX());
 }
 
-QValueAxis *ChartSelection::axisY() const
+QValueAxis *TraceSelectionItem::axisY() const
 {
     return static_cast<QValueAxis*>(chart()->axisY());
 }
 
-QChart *ChartSelection::chart() const
+QChart *TraceSelectionItem::chart() const
 {
     return static_cast<QChart*>(parentItem());
 }
 
-void ChartSelection::updateGeometry()
+void TraceSelectionItem::updateGeometry()
 {
     prepareGeometryChange();
 

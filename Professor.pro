@@ -13,6 +13,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Professor
 TEMPLATE = app
 
+DEFINES += QT_DEPRECATED_WARNINGS
+
 SOURCES += main.cpp\
     core/blocks/checksumblock.cpp \
     core/blocks/mapblock.cpp \
@@ -41,13 +43,14 @@ SOURCES += main.cpp\
     model/columns/samplespacingmetercolumn.cpp \
     model/reflectogram_.cpp \
     model/columns/pointscolumn.cpp \
-    gui/traceedit.cpp \
-    gui/chart.cpp \
-    gui/chartselection.cpp \
     utils/objectpropertymapping.cpp \
     utils/datapropertymapper.cpp \
     utils/detail/modelsectionobject.cpp \
-    utils/detail/common.cpp
+    utils/detail/common.cpp \
+    gui/traceview.cpp \
+    gui/tracechart.cpp \
+    gui/traceselectionitem.cpp \
+    gui/traceseries.cpp
 
 HEADERS  += \ 
     core/blocks/checksumblock.h \
@@ -96,13 +99,14 @@ HEADERS  += \
     model/reflectogramcolumn.h \
     model/reflectogram_.h \
     model/types_.h \
-    gui/traceedit.h \
-    gui/chart.h \
-    gui/chartselection.h \
     utils/objectpropertymapping.h \
     utils/datapropertymapper.h \
     utils/detail/modelsectionobject.h \
-    utils/detail/common.h
+    utils/detail/common.h \
+    gui/traceview.h \
+    gui/tracechart.h \
+    gui/traceselectionitem.h \
+    gui/traceseries.h
 
 FORMS    += \
     gui/reflectogramwidget.ui \
