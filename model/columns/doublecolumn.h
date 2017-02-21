@@ -10,23 +10,24 @@ namespace Model {
 template <Core::Reflectogram::Field field>
 class DoubleColumn: public TypedColumn<double, field>
 {
+    using Base = TypedColumn<double, field>;
+    using typename Base::CoreValueType;
+
 public:
     DoubleColumn (const QString &header, int factor) :
-        TypedColumn<double, field>(header),
+        Base(header),
         m_factor(factor)
     {}
 
 protected:
-    using typename TypedColumn<double, field>::CoreValueType;
-
-    virtual CoreValueType toCoreValue(const double &modelValue,
-                                      const Core::Reflectogram &) const
+    CoreValueType toCoreValue(const double &modelValue,
+                              const Core::Reflectogram &) const override
     {
         return lround(modelValue * m_factor);
     }
 
-    virtual double toModelValue(const CoreValueType &coreValue,
-                                const Core::Reflectogram &) const
+    double toModelValue(const CoreValueType &coreValue,
+                        const Core::Reflectogram &) const override
     {
         return double(coreValue) / m_factor;
     }

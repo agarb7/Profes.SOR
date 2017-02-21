@@ -50,7 +50,10 @@ SOURCES += main.cpp\
     gui/traceview.cpp \
     gui/tracechart.cpp \
     gui/traceselectionitem.cpp \
-    gui/traceseries.cpp
+    gui/traceseries.cpp \
+    gui/skewbutton.cpp \
+    gui/timetoallbutton.cpp \
+    gui/timetoalldialog.cpp
 
 HEADERS  += \ 
     core/blocks/checksumblock.h \
@@ -93,7 +96,6 @@ HEADERS  += \
     model/columns/stringcolumn.h \
     model/columns/doublecolumn.h \
     model/columnmap.h \
-    model/columns/datetimecolumn.h \
     model/columns/pointscolumn.h \
     model/columns/samplespacingmetercolumn.h \
     model/reflectogramcolumn.h \
@@ -106,9 +108,14 @@ HEADERS  += \
     gui/traceview.h \
     gui/tracechart.h \
     gui/traceselectionitem.h \
-    gui/traceseries.h
+    gui/traceseries.h \
+    gui/skewbutton.h \
+    model/columns/timepartcolumn.h \
+    gui/timetoallbutton.h \
+    gui/timetoalldialog.h
 
 FORMS    += \
     gui/reflectogramwidget.ui \
     gui/filelistpanel.ui \
-    gui/mainwindow.ui
+    gui/mainwindow.ui \
+    gui/timetoalldialog.ui

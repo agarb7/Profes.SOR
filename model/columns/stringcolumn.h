@@ -10,16 +10,18 @@ namespace Model {
 template <Core::Reflectogram::Field field>
 class StringColumn: public TypedColumn<QString, field>
 {
+    using Base = TypedColumn<QString, field>;
+
 public:
-    using TypedColumn<QString, field>::TypedColumn;
+    using Base::Base;
 
 protected:
-    virtual Core::String toCoreValue(const QString &modelValue, const Core::Reflectogram &) const
+    Core::String toCoreValue(const QString &modelValue, const Core::Reflectogram &) const override
     {
         return modelValue.toStdString();
     }
 
-    virtual QString toModelValue(const Core::String &coreValue, const Core::Reflectogram &) const
+    QString toModelValue(const Core::String &coreValue, const Core::Reflectogram &) const override
     {
         return QString::fromStdString(coreValue);
     }

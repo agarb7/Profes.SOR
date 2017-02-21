@@ -1,5 +1,7 @@
 #include "toallbutton.h"
 
+#include "model/reflectogram_.h"
+
 #include <QMetaProperty>
 
 ToAllButton::ToAllButton(QWidget *parent) :
@@ -8,16 +10,15 @@ ToAllButton::ToAllButton(QWidget *parent) :
     setText(tr("all"));
 
     connect(this, &QToolButton::clicked,
-            this, &ToAllButton::setEditorDataToAll);
+            this, &ToAllButton::onClickSlot);
 }
 
-
-QAbstractItemModel *ToAllButton::model() const
+Model::Reflectogram *ToAllButton::model() const
 {
     return m_model;
 }
 
-void ToAllButton::setModel(QAbstractItemModel *model)
+void ToAllButton::setModel(Model::Reflectogram *model)
 {
     m_model = model;
 }
@@ -42,18 +43,39 @@ void ToAllButton::setEditor(QWidget *editor)
     m_editor = editor;
 }
 
-void ToAllButton::setEditorDataToAll()
+/*!
+ * \brief ToAllButton::isSectionValid
+ * \param section
+ * \return true if model and section is valid, otherwise false
+ */
+bool ToAllButton::sectionIsValid() const
 {
-    if (!m_editor || !m_model || m_section == -1)
-        return;
+    return m_model
+            && m_section >= 0
+            && m_section < m_model->columnCount();
+}
 
-    QVariant data = m_editor
+QVariant ToAllButton::editorData() const
+{
+    return m_editor
             ->metaObject()
             ->userProperty()
             .read(m_editor);
+}
 
+void ToAllButton::onClick()
+{
+    if (!m_editor || !sectionIsValid())
+        return;
+
+    QVariant data = editorData();
     for (int row = 0, count = m_model->rowCount(); row<count; ++row) {
         QModelIndex index = m_model->index(row, m_section);
         m_model->setData(index, data);
     }
+}
+
+void ToAllButton::onClickSlot()
+{
+    onClick();
 }

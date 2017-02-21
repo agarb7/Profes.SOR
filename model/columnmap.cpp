@@ -5,7 +5,7 @@
 #include "columns/intcolumn.h"
 #include "columns/stringcolumn.h"
 #include "columns/doublecolumn.h"
-#include "columns/datetimecolumn.h"
+#include "columns/timepartcolumn.h"
 #include "columns/pointscolumn.h"
 #include "columns/samplespacingmetercolumn.h"
 
@@ -68,10 +68,13 @@ ColumnMap::ColumnMap()
     );
 
     setup(
-        ReflectogramColumn::DateTime,
-        new DateTimeColumn(
-            tr("Date/time")
-        )
+        ReflectogramColumn::Date,
+        new DateColumn(tr("Date"))
+    );
+
+    setup(
+        ReflectogramColumn::Time,
+        new TimeColumn(tr("Time"))
     );
 
     setup(

@@ -20,7 +20,7 @@ QVariant ModelSectionObject::data() const
 
     return mapper()
             ->currentModelIndex(m_section)
-            .data();
+            .data(Qt::EditRole);
 }
 
 void ModelSectionObject::setData(const QVariant &data)

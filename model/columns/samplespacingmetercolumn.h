@@ -10,8 +10,8 @@ class SampleSpacingMeterColumn: public AbstractColumn
 public:
     using AbstractColumn::AbstractColumn;
 
-    virtual QVariant data(const Core::Reflectogram &r) const;
-    virtual SetResults setData(Core::Reflectogram &, const QVariant &) const;
+    QVariant data(const Core::Reflectogram &r) const override;
+    SetResults setData(Core::Reflectogram &, const QVariant &) const override;
 };
 
 } // namespace Model

@@ -13,6 +13,9 @@ ReflectogramWidget::ReflectogramWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->timeAllBtn->setReflectogramWidget(this);
+    ui->traceSkewBtn->setSourceEditor(ui->traceSkewEdit);
+
     TraceSelectionItem *selection = ui->traceView->traceSelection();
 
     setupEditorMapping(selection, "start", ui->traceSelStartEdit);
@@ -86,8 +89,11 @@ void ReflectogramWidget::setModel(Model::Reflectogram *model)
     setupItemModel(model, ReflectogramColumn::SupplierOther,
                    ui->supplierOtherEdit, ui->supplierOtherLabel, ui->supplierOtherAllBtn);
 
-    setupItemModel(model, ReflectogramColumn::DateTime,
-                   ui->dateTimeEdit, ui->dateTimeLabel, ui->dateTimeAllBtn);
+    setupItemModel(model, ReflectogramColumn::Date,
+                   ui->dateEdit, 0, ui->dateAllBtn);
+
+    setupItemModel(model, ReflectogramColumn::Time,
+                   ui->timeEdit, 0, ui->timeAllBtn);
 
     setupItemModel(model, ReflectogramColumn::Wavelength,
                    ui->wavelengthEdit, ui->wavelengthLabel, ui->wavelengthAllBtn);
@@ -109,7 +115,12 @@ void ReflectogramWidget::setModel(Model::Reflectogram *model)
                    ui->fiberStartPositionEdit, ui->fiberStartPositionLabel, ui->fiberStartPositionAllBtn);
 
     setupItemModel(model, ReflectogramColumn::SampleSpacingMeter,
-                   ui->sampleSpacingMeterEdit);    
+                   ui->sampleSpacingMeterEdit);
+}
+
+int ReflectogramWidget::currentIndex() const
+{
+    return m_mapper.currentIndex();
 }
 
 void ReflectogramWidget::setupItemModel(Model::Reflectogram *model, Model::ReflectogramColumn columnId,

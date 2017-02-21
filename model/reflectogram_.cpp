@@ -3,6 +3,7 @@
 #include "fileinputbuffer.h"
 
 #include <QFile>
+#include <QFileInfo>
 #include <QDateTime>
 #include <QVector>
 
@@ -49,8 +50,11 @@ QVariant Reflectogram::data(const QModelIndex &index, int role) const
 
     const Row &row = m_data[index.row()];
 
-    if (columnId == ReflectogramColumn::FilePath)
-        return row.filePath;
+    if (columnId == ReflectogramColumn::FilePath) {
+        return role == Qt::EditRole
+                ? row.filePath
+                : QFileInfo(row.filePath).fileName();
+    }
 
     const Core::Reflectogram &r = row.reflectogram;
 

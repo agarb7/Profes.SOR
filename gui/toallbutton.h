@@ -2,15 +2,20 @@
 #define TOALLBUTTON_H
 
 #include <QToolButton>
-#include <QAbstractItemModel>
+
+namespace Model {
+    class Reflectogram;
+}
 
 class ToAllButton: public QToolButton
 {
+    Q_OBJECT
+
 public:
     explicit ToAllButton(QWidget *parent = 0);    
 
-    QAbstractItemModel *model() const;
-    void setModel(QAbstractItemModel *model);
+    Model::Reflectogram *model() const;
+    void setModel(Model::Reflectogram *model);
 
     int section() const;
     void setSection(int section);
@@ -18,12 +23,17 @@ public:
     QWidget *editor() const;
     void setEditor(QWidget *editor);
 
+protected:
+    bool sectionIsValid() const;
+    QVariant editorData() const;
+    virtual void onClick();
+
 private slots:
-    void setEditorDataToAll();
+    void onClickSlot();
 
 private:
     QWidget *m_editor = 0;
-    QAbstractItemModel *m_model=0;
+    Model::Reflectogram *m_model=0;
     int m_section=-1;
 };
 

@@ -13,17 +13,18 @@ class TypedColumn : public AbstractColumn
 protected:
     using CoreValueType = Core::Reflectogram::ValueType<field>;
     using ModelValueType = ModelValueType_;
+    static constexpr Core::Reflectogram::Field CoreField = field;
 
 public:
     using AbstractColumn::AbstractColumn;
 
-    virtual QVariant data(const Core::Reflectogram &r) const
+    QVariant data(const Core::Reflectogram &r) const override
     {
         return QVariant::fromValue(
                     toModelValue(r.value<field>(), r) );
     }
 
-    virtual SetResults setData(Core::Reflectogram &r, const QVariant &value) const
+    SetResults setData(Core::Reflectogram &r, const QVariant &value) const override
     {
         if (r.empty() || !value.canConvert<ModelValueType>())
             return NotAccepted;

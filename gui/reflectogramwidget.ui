@@ -24,7 +24,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="filePathEdit"/>
+      <widget class="QLineEdit" name="filePathEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -32,6 +36,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_16">
      <item>
       <layout class="QFormLayout" name="formLayout">
+       <property name="labelAlignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
        <item row="0" column="0">
         <widget class="Label" name="supplierNameLabel">
          <property name="text">
@@ -155,24 +162,40 @@
      </item>
      <item>
       <layout class="QFormLayout" name="formLayout_2">
+       <property name="labelAlignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
        <item row="0" column="0">
-        <widget class="Label" name="dateTimeLabel">
+        <widget class="QLabel" name="dateTimeLabel">
          <property name="text">
-          <string/>
+          <string>Date/time</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <layout class="QHBoxLayout" name="horizontalLayout_18">
          <item>
-          <widget class="QDateTimeEdit" name="dateTimeEdit">
+          <widget class="QDateEdit" name="dateEdit">
            <property name="calendarPopup">
             <bool>true</bool>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="ToAllButton" name="dateTimeAllBtn"/>
+          <widget class="ToAllButton" name="dateAllBtn"/>
+         </item>
+         <item>
+          <widget class="QTimeEdit" name="timeEdit">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
+           <property name="displayFormat">
+            <string notr="true">hh:mm:ss</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="TimeToAllButton" name="timeAllBtn"/>
          </item>
         </layout>
        </item>
@@ -255,6 +278,9 @@
            </property>
            <property name="buttonSymbols">
             <enum>QAbstractSpinBox::NoButtons</enum>
+           </property>
+           <property name="accelerated">
+            <bool>true</bool>
            </property>
            <property name="suffix">
             <string> m</string>
@@ -395,6 +421,9 @@
      </item>
      <item>
       <layout class="QFormLayout" name="formLayout_3">
+       <property name="labelAlignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
        <item row="0" column="0">
         <widget class="QLabel" name="traceAllLabel">
          <property name="text">
@@ -419,6 +448,32 @@
          </property>
          <property name="suffix">
           <string> p/m</string>
+         </property>
+         <property name="minimum">
+          <double>0.010000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>999999999.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.050000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="traceVerticalResolutionLabel">
+         <property name="text">
+          <string>V-Res</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QDoubleSpinBox" name="traceVerticalResolutionEdit">
+         <property name="accelerated">
+          <bool>true</bool>
+         </property>
+         <property name="suffix">
+          <string> p/dB</string>
          </property>
          <property name="minimum">
           <double>0.010000000000000</double>
@@ -489,17 +544,17 @@
         </widget>
        </item>
        <item row="7" column="0">
-        <widget class="QLabel" name="traceScewLabel">
+        <widget class="QLabel" name="traceSkewLabel">
          <property name="enabled">
           <bool>false</bool>
          </property>
          <property name="text">
-          <string>Scew</string>
+          <string>Skew</string>
          </property>
         </widget>
        </item>
        <item row="7" column="1">
-        <widget class="QDoubleSpinBox" name="traceScewEdit">
+        <widget class="QDoubleSpinBox" name="traceSkewEdit">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -507,36 +562,20 @@
           <string> dB</string>
          </property>
          <property name="minimum">
-          <double>-999.000000000000000</double>
+          <double>-9999.000000000000000</double>
          </property>
          <property name="maximum">
-          <double>999.000000000000000</double>
+          <double>9999.000000000000000</double>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="traceVerticalResolutionLabel">
+       <item row="8" column="0" colspan="2">
+        <widget class="SkewButton" name="traceSkewBtn">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
-          <string>V-Res</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QDoubleSpinBox" name="traceVerticalResolutionEdit">
-         <property name="accelerated">
-          <bool>true</bool>
-         </property>
-         <property name="suffix">
-          <string> p/dB</string>
-         </property>
-         <property name="minimum">
-          <double>0.010000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>999999999.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.050000000000000</double>
+          <string>Skew</string>
          </property>
         </widget>
        </item>
@@ -565,7 +604,21 @@
    <slots>
     <slot>duplicateSelected()</slot>
     <slot>deleteSelected()</slot>
+    <slot>skewSelected(double)</slot>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>SkewButton</class>
+   <extends>QPushButton</extends>
+   <header>gui/skewbutton.h</header>
+   <slots>
+    <signal>skewClicked(double)</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>TimeToAllButton</class>
+   <extends>QToolButton</extends>
+   <header>gui/timetoallbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -577,8 +630,8 @@
    <slot>duplicateSelected()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>539</x>
-     <y>531</y>
+     <x>793</x>
+     <y>566</y>
     </hint>
     <hint type="destinationlabel">
      <x>312</x>
@@ -593,12 +646,28 @@
    <slot>deleteSelected()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>575</x>
-     <y>554</y>
+     <x>793</x>
+     <y>595</y>
     </hint>
     <hint type="destinationlabel">
      <x>327</x>
      <y>600</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>traceSkewBtn</sender>
+   <signal>skewClicked(double)</signal>
+   <receiver>traceView</receiver>
+   <slot>skewSelected(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>529</x>
+     <y>641</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>365</x>
+     <y>636</y>
     </hint>
    </hints>
   </connection>

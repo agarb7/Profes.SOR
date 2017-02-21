@@ -29,6 +29,8 @@ public:
     Model::Reflectogram *model() const;
     void setModel(Model::Reflectogram *model);
 
+    int currentIndex() const;
+
 public slots:
     void setCurrentIndex(int index);
 

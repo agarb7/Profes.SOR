@@ -12,8 +12,8 @@ class FileInputBuffer: public Core::AbstractInputBuffer
 public:
     FileInputBuffer(QFile &file);
 
-    virtual bool read(char *data, Core::SizeType size);
-    virtual bool getChar(char *c);
+    bool read(char *data, Core::SizeType size) override;
+    bool getChar(char *c) override;
 
 private:
     QFile &m_file;

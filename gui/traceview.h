@@ -48,6 +48,7 @@ public slots:
 
     void deleteSelected();
     void duplicateSelected();
+    void skewSelected(double skew);
 
 protected slots:
     void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;

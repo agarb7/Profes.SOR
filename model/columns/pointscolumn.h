@@ -9,16 +9,18 @@
 namespace Model {
 
 class PointsColumn: public TypedColumn<PointVector, Core::Reflectogram::Points>
-{    
+{
+    using Base = TypedColumn<PointVector, Core::Reflectogram::Points>;
+
 public:
-    using TypedColumn<PointVector, Core::Reflectogram::Points>::TypedColumn;
+    using Base::Base;
 
 protected:
-    virtual Core::LeUInt16Vector toCoreValue(const PointVector &points,
-                                             const Core::Reflectogram &r) const;
+    Core::LeUInt16Vector toCoreValue(const PointVector &points,
+                                     const Core::Reflectogram &r) const override;
 
-    virtual PointVector toModelValue(const Core::LeUInt16Vector &corePoints,
-                                     const Core::Reflectogram &r) const;
+    PointVector toModelValue(const Core::LeUInt16Vector &corePoints,
+                             const Core::Reflectogram &r) const override;
 
 private:
     template <class To, class From, class Op>

@@ -13,6 +13,8 @@
 
 #include <cmath>
 
+#include <QDebug>
+
 using namespace QtCharts;
 
 TraceView::TraceView(QWidget *parent) :
@@ -144,6 +146,15 @@ void TraceView::duplicateSelected()
                        [delta](double p) {return p+delta;} );
 
         setPoints(row, res);
+    });
+}
+
+void TraceView::skewSelected(double skew)
+{
+    qDebug() << 666;
+
+    forAffectedRows([this, skew](int row) {
+        qDebug() << "skew row" << row << "by" << skew;
     });
 }
 

@@ -8,20 +8,19 @@ namespace Model {
 template <Core::Reflectogram::Field field>
 class IntColumn: public TypedColumn<int, field>
 {
+    using Base = TypedColumn<int, field>;
+    using typename Base::CoreValueType;
+
 public:
-    using TypedColumn<int, field>::TypedColumn;
+    using Base::Base;
 
 protected:
-    using typename TypedColumn<int, field>::CoreValueType;
-
-    virtual CoreValueType toCoreValue(const int &modelValue,
-                                      const Core::Reflectogram &) const
+    CoreValueType toCoreValue(const int &modelValue, const Core::Reflectogram &) const override
     {
         return modelValue;
     }
 
-    virtual int toModelValue(const CoreValueType &coreValue,
-                             const Core::Reflectogram &) const
+    int toModelValue(const CoreValueType &coreValue, const Core::Reflectogram &) const override
     {
         return coreValue;
     }

@@ -14,7 +14,8 @@ enum class ReflectogramColumn {
     ModuleSerialNumber,
     SoftwareVersion,
     SupplierOther,
-    DateTime,
+    Date,
+    Time,
     Wavelength, // in nanometers
     PulseWidth, // in nanoseconds
     SampleSpacing, // in picoseconds
