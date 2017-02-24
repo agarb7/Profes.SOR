@@ -545,9 +545,6 @@
        </item>
        <item row="7" column="0">
         <widget class="QLabel" name="traceSkewLabel">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
          <property name="text">
           <string>Skew</string>
          </property>
@@ -555,9 +552,6 @@
        </item>
        <item row="7" column="1">
         <widget class="QDoubleSpinBox" name="traceSkewEdit">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
          <property name="suffix">
           <string> dB</string>
          </property>
@@ -571,9 +565,6 @@
        </item>
        <item row="8" column="0" colspan="2">
         <widget class="SkewButton" name="traceSkewBtn">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
          <property name="text">
           <string>Skew</string>
          </property>

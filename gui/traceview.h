@@ -48,7 +48,7 @@ public slots:
 
     void deleteSelected();
     void duplicateSelected();
-    void skewSelected(double skew);
+    void skewSelected(double skew);    
 
 protected slots:
     void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
@@ -100,6 +100,7 @@ private:
 
     int selectionMinIndex(int row) const;
     int selectionMaxIndex(int row) const;
+    std::pair<int, int> boundedSelectionIndicies(int row);
 
     static void setupScrollBar(QScrollBar *bar,
                                double axisMin, double axisMax,
