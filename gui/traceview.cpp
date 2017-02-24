@@ -13,8 +13,6 @@
 
 #include <cmath>
 
-#include <QDebug>
-
 using namespace QtCharts;
 
 TraceView::TraceView(QWidget *parent) :
@@ -97,17 +95,13 @@ void TraceView::setVerticalResolution(double pixelPerDb)
 //todo allow first deletion
 void TraceView::deleteSelected()
 {
-    forAffectedRows([this](int row) {
-        int indFirst = selectionMinIndex(row);
-        if (indFirst <= 0)
+    forAffectedRows([this](int row) {        
+        int indFirst, indLast;
+        std::tie(indFirst, indLast) = boundedSelectionIndicies(row);
+        if (indLast < indFirst)
             return;
 
-        int indLast = selectionMaxIndex(row);
         Model::PointVector ps = points(row);
-
-        if (indLast >= ps.count())
-            return;
-
         double delta = ps.at(indLast) - ps.at(indFirst-1);
 
         Model::PointVector res(ps.count() - (indLast-indFirst+1));
@@ -125,16 +119,12 @@ void TraceView::deleteSelected()
 void TraceView::duplicateSelected()
 {
     forAffectedRows([this](int row) {
-        int indFirst = selectionMinIndex(row);
-        if (indFirst <= 0)
+        int indFirst, indLast;
+        std::tie(indFirst, indLast) = boundedSelectionIndicies(row);
+        if (indLast < indFirst)
             return;
 
-        int indLast = selectionMaxIndex(row);
         Model::PointVector ps = points(row);
-
-        if (indLast >= ps.count())
-            return;
-
         double delta = ps.at(indLast) - ps.at(indFirst-1);
 
         Model::PointVector res(ps.count() + (indLast-indFirst+1));
@@ -151,10 +141,28 @@ void TraceView::duplicateSelected()
 
 void TraceView::skewSelected(double skew)
 {
-    qDebug() << 666;
-
     forAffectedRows([this, skew](int row) {
-        qDebug() << "skew row" << row << "by" << skew;
+        int indFirst, indLast;
+        std::tie(indFirst, indLast) = boundedSelectionIndicies(row);
+        if (indLast < indFirst)
+            return;
+
+        Model::PointVector ps = points(row);
+
+        int i = 1;
+        int rangeLen = indLast-indFirst+1;
+        auto itAfterLast = ps.begin()+indLast+1;
+
+        for (auto it=ps.begin()+indFirst; it!=itAfterLast; ++it)
+        {
+            double delta = i*skew/rangeLen;
+            *it += delta;
+            ++i;
+        }
+
+        std::for_each(itAfterLast, ps.end(), [skew](double &p){p+=skew;});
+
+        setPoints(row, ps);
     });
 }
 
@@ -297,6 +305,21 @@ int TraceView::selectionMaxIndex(int row) const
 {
     double max = m_chart->selection()->max();
     return std::lround(std::floor(max / sampleSpacing(row)));
+}
+
+std::pair<int, int> TraceView::boundedSelectionIndicies(int row)
+{
+    int indFirst = selectionMinIndex(row);
+    if (indFirst <= 0)
+        indFirst = 0;
+
+    int indLast = selectionMaxIndex(row);
+    int count = points(row).count(); //todo optimize this, e.g. count = model->data(idx, PointCountRole)
+
+    if (indLast >= count)
+        indLast = count-1;
+
+    return {indFirst, indLast};
 }
 
 void TraceView::scrollContentsBy(int dx, int dy)
