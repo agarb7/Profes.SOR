@@ -6,6 +6,8 @@
 
 QT       += core gui charts
 
+CONFIG += c++14
+
 CONFIG(release, debug|release): DEFINES += NDEBUG
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

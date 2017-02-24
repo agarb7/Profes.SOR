@@ -160,7 +160,7 @@ void TraceView::skewSelected(double skew)
             ++i;
         }
 
-        std::for_each(itAfterLast, ps.end(), [skew](double &p){p+=skew;});
+        std::for_each(itAfterLast, ps.end(), [skew](auto &p){p+=skew;});
 
         setPoints(row, ps);
     });
