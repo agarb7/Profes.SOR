@@ -124,6 +124,14 @@ ColumnMap::ColumnMap()
     );
 
     setup(
+        ReflectogramColumn::Range,
+        new DoubleColumn<Core::Reflectogram::Range>(
+            tr("Range"),
+            50000
+        )
+    );
+
+    setup(
         ReflectogramColumn::FiberStartPosition,
         new DoubleColumn<Core::Reflectogram::FiberStartPosition>(
             tr("Events: Fiber start position"),

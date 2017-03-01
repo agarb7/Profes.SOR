@@ -22,8 +22,9 @@ enum class ReflectogramColumn {
     SampleSpacingMeter, // in meters
     IndexOfRefraction,
     BackscatteringCoefficient,
-    FiberStartPosition, // in 0.1 nanoseconds
-    FiberLength, // in 0.1 nanoseconds
+    Range, // in kilometers
+    FiberStartPosition, // in nanoseconds
+    FiberLength, // in nanoseconds
     Points
 };
 
