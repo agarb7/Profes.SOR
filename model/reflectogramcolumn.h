@@ -19,15 +19,16 @@ enum class ReflectogramColumn {
     Wavelength, // in nanometers
     PulseWidth, // in nanoseconds
     SampleSpacing, // in picoseconds
+    SampleSpacingMeter, // in meters
     IndexOfRefraction,
     BackscatteringCoefficient,
-    FiberStartPosition, // in nanoseconds
-    Points,
-    SampleSpacingMeter
+    FiberStartPosition, // in 0.1 nanoseconds
+    FiberLength, // in 0.1 nanoseconds
+    Points
 };
 
 static constexpr std::size_t ReflectogramColumnCount
-    = std::size_t(ReflectogramColumn::SampleSpacingMeter) + 1;
+    = std::size_t(ReflectogramColumn::Points) + 1;
 
 } // namespace Model
 
