@@ -29,6 +29,7 @@ public:
         SampleSpacing,
         IndexOfRefraction,
         BackscatteringCoefficient,
+        Range,
         FiberStartPosition,
         FiberLength,
         ScalingFactor,
@@ -104,6 +105,11 @@ private:
             BackscatteringCoefficient,
             Ic<Main, Main::FixedParameters>,
             Ic<FixedParameters, FixedParameters::BackscatteringCoefficient>
+        >,
+        FieldMapItem<
+            Range,
+            Ic<Main, Main::FixedParameters>,
+            Ic<FixedParameters, FixedParameters::Range>
         >,
         FieldMapItem<
             FiberStartPosition,

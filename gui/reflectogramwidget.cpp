@@ -114,6 +114,10 @@ void ReflectogramWidget::setModel(Model::Reflectogram *model)
                    ui->backscatteringCoefficientEdit, ui->backscatteringCoefficientLabel,
                    ui->backscatteringCoefficientAllBtn);
 
+    setupItemModel(model, ReflectogramColumn::Range,
+                   ui->rangeEdit, ui->rangeLabel,
+                   ui->rangeAllBtn);
+
     setupItemModel(model, ReflectogramColumn::FiberStartPosition,
                    ui->fiberStartPositionEdit, ui->fiberStartPositionLabel, ui->fiberStartPositionAllBtn);
 

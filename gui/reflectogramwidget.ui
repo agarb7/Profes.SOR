@@ -377,14 +377,14 @@
          </item>
         </layout>
        </item>
-       <item row="6" column="0">
+       <item row="7" column="0">
         <widget class="Label" name="fiberStartPositionLabel">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="7" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_15">
          <item>
           <widget class="QDoubleSpinBox" name="fiberStartPositionEdit">
@@ -410,14 +410,14 @@
          </item>
         </layout>
        </item>
-       <item row="7" column="0">
+       <item row="8" column="0">
         <widget class="Label" name="fiberLengthLabel">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="8" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
           <widget class="QDoubleSpinBox" name="fiberLengthEdit">
@@ -440,6 +440,36 @@
          </item>
          <item>
           <widget class="ToAllButton" name="fiberLengthAllBtn"/>
+         </item>
+        </layout>
+       </item>
+       <item row="6" column="0">
+        <widget class="Label" name="rangeLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_19">
+         <item>
+          <widget class="QDoubleSpinBox" name="rangeEdit">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
+           <property name="suffix">
+            <string> km</string>
+           </property>
+           <property name="decimals">
+            <number>5</number>
+           </property>
+           <property name="maximum">
+            <double>999.990000000000009</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ToAllButton" name="rangeAllBtn"/>
          </item>
         </layout>
        </item>
