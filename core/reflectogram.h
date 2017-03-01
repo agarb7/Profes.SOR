@@ -30,6 +30,7 @@ public:
         IndexOfRefraction,
         BackscatteringCoefficient,
         FiberStartPosition,
+        FiberLength,
         ScalingFactor,
         Points
     };
@@ -108,6 +109,11 @@ private:
             FiberStartPosition,
             Ic<Main, Main::KeyEvents>,
             Ic<KeyEvents, KeyEvents::FiberStartPosition>
+        >,
+        FieldMapItem<
+            FiberLength,
+            Ic<Main, Main::KeyEvents>,
+            Ic<KeyEvents, KeyEvents::FiberLength>
         >,
         FieldMapItem<
             ScalingFactor,

@@ -104,6 +104,9 @@ void ReflectogramWidget::setModel(Model::Reflectogram *model)
     setupItemModel(model, ReflectogramColumn::SampleSpacing,
                    ui->sampleSpacingEdit, ui->sampleSpacingLabel, ui->sampleSpacingAllBtn);
 
+    setupItemModel(model, ReflectogramColumn::SampleSpacingMeter,
+                   ui->sampleSpacingMeterEdit);
+
     setupItemModel(model, ReflectogramColumn::IndexOfRefraction,
                    ui->indexOfRefractionEdit, ui->indexOfRefractionLabel, ui->indexOfRefractionAllBtn);
 
@@ -114,8 +117,8 @@ void ReflectogramWidget::setModel(Model::Reflectogram *model)
     setupItemModel(model, ReflectogramColumn::FiberStartPosition,
                    ui->fiberStartPositionEdit, ui->fiberStartPositionLabel, ui->fiberStartPositionAllBtn);
 
-    setupItemModel(model, ReflectogramColumn::SampleSpacingMeter,
-                   ui->sampleSpacingMeterEdit);
+    setupItemModel(model, ReflectogramColumn::FiberLength,
+                   ui->fiberLengthEdit, ui->fiberLengthLabel, ui->fiberLengthAllBtn);
 }
 
 int ReflectogramWidget::currentIndex() const

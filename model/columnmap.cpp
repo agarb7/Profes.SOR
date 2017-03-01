@@ -101,6 +101,13 @@ ColumnMap::ColumnMap()
     );
 
     setup(
+        ReflectogramColumn::SampleSpacingMeter,
+        new SampleSpacingMeterColumn(
+            tr("Sample spacing (m)")
+        )
+    );
+
+    setup(
         ReflectogramColumn::IndexOfRefraction,
         new DoubleColumn<Core::Reflectogram::IndexOfRefraction>(
             tr("Index of refraction"),
@@ -119,7 +126,15 @@ ColumnMap::ColumnMap()
     setup(
         ReflectogramColumn::FiberStartPosition,
         new DoubleColumn<Core::Reflectogram::FiberStartPosition>(
-            tr("Fiber start position"),
+            tr("Events: Fiber start position"),
+            10
+        )
+    );
+
+    setup(
+        ReflectogramColumn::FiberLength,
+        new DoubleColumn<Core::Reflectogram::FiberLength>(
+            tr("Events: Fiber length"),
             10
         )
     );
@@ -128,13 +143,6 @@ ColumnMap::ColumnMap()
         ReflectogramColumn::Points,
         new PointsColumn(
             tr("Trace")
-        )
-    );
-
-    setup(
-        ReflectogramColumn::SampleSpacingMeter,
-        new SampleSpacingMeterColumn(
-            tr("Sample spacing (m)")
         )
     );
 
